@@ -1,0 +1,156 @@
+<div id="mymain" class="container-fluid min-height-wrap">
+    <div class="selection row col-md-12" style="margin-top: 30px">
+      
+      <div class="select-container text-center col-md-2 ">
+        <div id="selectedStateDrop" class="input-group">
+          <input type="text" placeholder="State *" id="state"
+            class="form-control not-visible-input" name="state"
+            readonly="" [(ngModel)]="selectedState.areaName"
+            oninvalid="this.setCustomValidity('Please select State')" >
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown"
+              class="btn btn-color " type="button"style="margin-top: 0px;" [disabled]='allStates.length==1'>
+              <i class="fa fa-list"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectedStateDrop')}">
+              <li  class="dropdown-item" *ngFor="let state of allStates"
+              (click)="selectState(state)" >{{state.areaName}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="select-container text-center col-md-2 ">
+        <div id = "selectPrograme" class="input-group">
+          <input type="text" placeholder="Program Name *" id="program"
+            class="form-control not-visible-input" name="program"
+            readonly="" [(ngModel)]="selectedProgram"
+            oninvalid="this.setCustomValidity('Please select Program Type')">
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown"
+              class="btn btn-color " type="button"style="margin-top: 0px;">
+              <i class="fa fa-list"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectPrograme')}">
+              <li  class="dropdown-item" *ngFor="let program of programList"
+              (click)="selectProgram(program)">{{program}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="select-container text-center col-md-2 ">
+      <div id="selectFacilityType" class="input-group">
+        <input type="text" placeholder="Facility Type *" id="facilityType"
+          class="form-control not-visible-input" name="facilityType"
+          readonly="" [(ngModel)]="selectedArea.areaLevelName"
+          oninvalid="this.setCustomValidity('Please select Facility Type')">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown"
+            class="btn btn-color " type="button"style="margin-top: 0px;" >
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectFacilityType')}">
+            <li  class="dropdown-item" *ngFor="let facilityType of selectedDistrictFacility"
+            (click)="selectFacilityType(facilityType)">{{facilityType.areaLevelModel.areaLevelName}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="select-container dist-list text-center col-md-3 ">
+      <div id="selectDistrict" class="input-group">
+        <input type="text"
+          placeholder="Districts *" id="Dist"
+          class="form-control not-visible-input" name="Dist" readonly=""
+          [(ngModel)]="selectedDistrict.areaName">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown"
+            class="btn btn-color " type="button" style="margin-top: 0px;">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" [ngStyle]="{'width.px': getWidth('selectDistrict')}" role="menu">
+            <li class="dropdown-item" *ngFor="let district of fipDistricts"
+              (click)="selectDistrict(district)">{{district.areaName}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="select-container text-center col-md-3">
+      <div id="selectFacilityName" class="input-group">
+        <input type="text" placeholder="Facility Name *" id="facilityName"
+          class="form-control not-visible-input" name="facilityName"
+          readonly="" [(ngModel)]="selectedFacility.facilityName"
+          oninvalid="this.setCustomValidity('Please select Facility Type')">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown"
+            class="btn btn-color " type="button" style="margin-top: 0px;">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectFacilityName')}">
+            <li class="dropdown-item" *ngFor="let facility of facilityList"
+              (click)="selectFacility(facility)">{{facility.facilityName}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 text-right" style="margin: 10px 0;" >
+      <button type="submit" (click)="downloadReport()" class="submit-selection" style="margin-top: 0px;"
+        >Download FIP</button>
+    </div> 
+			</div>
+      <h6 class="text-center">*Note : FIP is available based on the latest round of data collection.</h6>
+</div>
+<div class="modal fade" id="errorMessage" role="dialog"
+style="margin-top: 12%;">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content modal-info">
+    <div class="modal-header"
+      style="background-color: #2f515b; color: #fff;">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <!-- <h4 class="modal-title" style="text-align: center;">Error</h4> -->
+    </div>
+    <div class="modal-body">
+      <p
+        style="text-align: center; font-size: 20px; margin-bottom: -10px;">
+        Please select the {{errorMsg}}</p>
+    </div>
+    <div class="modal-footer" style="text-align: center;">
+      <button type="button"
+        class="btn btn-default btn-view text-center"
+        data-dismiss="modal">Ok</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="modal fade" id="noDataModall" role="dialog"
+							style="margin-top: 12%;">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content modal-info">
+									<div class="modal-header"
+										style="background-color: #2f515b; color: #fff;">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<!-- <h4 class="modal-title" style="text-align: center;">Info</h4> -->
+									</div>
+									<div class="modal-body">
+										<p
+											style="text-align: center; font-size: 20px; margin-bottom: -10px;">NO
+											DATA AVAILABLE</p>
+									</div>
+									<div class="modal-footer" style="text-align: center;">
+										<button type="button"
+											class="btn btn-default btn-view text-center "
+											data-dismiss="modal">Ok</button>
+									</div>
+								</div>
+
+							</div>
+            </div>
+            
+           

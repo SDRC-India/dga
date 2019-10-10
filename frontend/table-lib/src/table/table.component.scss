@@ -1,0 +1,119 @@
+.header-fixed { 
+    position: absolute; 
+    display:none;
+    z-index: 1;
+    overflow: hidden;
+    margin-right: 15px;
+    // width: auto;
+}
+.parent-tabl-container{
+    position: relative;
+}
+.table{
+    margin-bottom: 0px;
+}
+.table th {
+    padding: 9px;   
+}
+.table td {
+    padding: 5px;   
+    vertical-align: middle;
+}
+table thead{
+    background-color: #187080;
+    color: #FFF;
+    font-size: 15px !important;
+}
+td{
+    text-align: center;
+}
+table thead th{
+    vertical-align: middle;
+    text-align: center;
+    font-weight: 500;
+}
+.pagination-view {
+    float:right;
+}
+#myInput {
+    width: 100%;
+    border-radius: 0;
+    font-size: 16px; 
+    padding: 12px 20px 12px 30px !important;
+    font-style: inherit;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    box-shadow: 0px 0px 2px 0px;
+    font-size: 15px;
+    height: 34px;
+}
+.form-group{
+    margin-bottom: 0px !important; 
+}
+.table-btn.search .form-group{
+    position: relative;
+}
+.table-btn.search .form-group:before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 5px;
+    left: 7px;
+    color: #9c9c9c;
+    content: "\f002";
+}
+.search-area {
+    font-style: italic;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+.search-close{
+    margin-top: -28px;
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+    color: #999;
+}
+input[type="text"] {
+    font-style:italic;
+}
+.table-btn .btn-excel, .table-btn .btn-pdf{
+    // margin-bottom: 16px;
+    background-color: #fff;
+    //color: #FFF;
+    border-radius: 0;
+    cursor: auto;
+    padding: 6px 10px 0 0;
+}
+.btn-excel:focus, .btn-excel:active{
+    outline: none !important;
+    border: none !important;
+}
+.table-btn .btn-excel span, .table-btn .btn-pdf span{
+    font-size: 14px;
+    cursor: pointer;
+}
+.fa-sorting{
+    cursor: pointer;
+}
+.table-btn {
+    display: inline-block;
+    float: right;
+    // margin: 0 5px;
+    margin-bottom: 2px;
+}
+.td-minWidth{
+    min-width: 120px !important;
+}
+.td-minWidth span i{
+    cursor: pointer;
+    color: #212529;
+    font-size: 18px;
+}
+.td-minWidth button{
+    border: none;
+    background: none;
+}
+.fa-stack {  
+    margin-right: 10px;
+}

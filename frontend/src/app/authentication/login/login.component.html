@@ -1,0 +1,38 @@
+<div class="container">
+<div class="login-form-container">
+  <header class="col-md-12 login-header" style="text-align:center;"><strong>Login</strong>
+  </header>
+  <div class="container-body">     
+     <form (submit)="login()" [noValidate]="false">  
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="usr">Username:</label>
+                <input type="text" name="username" class="form-control" [(ngModel)]="userService.credentials.username" placeholder="" id="usr" required>            
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" name="password" class="form-control" [(ngModel)]="userService.credentials.password" placeholder="" id="pwd" required>            
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-default login-submit" type="submit">Submit</button>
+      </div>
+    </div>
+</form>
+<div class="row error-message">
+  <div class="col">
+          <b>Enter valid username and password</b>
+  </div>
+  
+</div>
+</div>
+</div>
+</div>
+

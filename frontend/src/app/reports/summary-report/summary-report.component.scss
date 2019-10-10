@@ -1,0 +1,27 @@
+#dataTable th {
+    border-top: 1px solid #ddd;
+    border-bottom: none;
+    background-color: #f4f4f4;
+    min-width: 100px;
+    font-size: 12px;
+    position: fixed;
+}
+div#divisionTable .modal-dialog {
+    min-width: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+div#divisionTable .modal-dialog .modal-content {
+    border-radius: 0;
+}
+
+div#divisionTable{
+    padding-right: 0px !important;
+}
+
+#dataTable th {
+    text-align: center;
+}
+
+

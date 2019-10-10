@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <div class="row question-row">
+        <div class="col-md-12 content-sec-other offset-md-2">
+      <div class="col-md-12">
+          <h2 class="user-heading">District Health Action Plan</h2>
+          <span class="field_mandate" style="color: #F00">*</span><span class="field_mandatory"> All fields are mandatory</span>
+          <div class="marg-left-other col-md-10 m-auto">
+     <form class="all-fields row" #f="ngForm">
+      <div class="selection-fields col-md-4">
+          <label for="usr">State<span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+              <mat-select [disabled]="showAreaLoginBased"  matInput name="state" (selectionChange)="getDistrict(selectedState)" [(ngModel)]="selectedState" required>
+                  <mat-option *ngFor="let state of dhapService.stateLists" [value]='state.areaId'>
+                      {{state.areaName}}
+                  </mat-option>
+              </mat-select>
+              <mat-error class="padding-bottom ">
+                  Please provide a state name
+                  </mat-error>
+          </mat-form-field>
+     </div>
+
+
+  <div class="selection-fields col-md-4" >
+      <label for="usr">District<span style="color:red; font-weight:500;">*</span> :</label>
+      <mat-form-field>
+          <mat-select [disabled]="showDistrictLoginBased" name="district" [(ngModel)]="selectedDistrict" required>
+              <mat-option *ngFor="let dist of dhapService.districtLists" [value]=dist>
+                  {{dist.areaName}}
+              </mat-option>
+          </mat-select>
+          <mat-error class="padding-bottom ">
+              Please provide district name
+              </mat-error>
+      </mat-form-field>
+</div>
+
+<div class="selection-fields col-md-4" >
+    <label for="usr">Time Period<span style="color:red; font-weight:500;">*</span> :</label>
+    <mat-form-field>
+        <mat-select name="timepp" [(ngModel)]="selectedTime" required>
+            <mat-option *ngFor='let time of allTime' [value]=time.timePeriodId>
+                {{time.shortName}}
+            </mat-option>
+        </mat-select>
+        <mat-error class="padding-bottom ">
+            Please provide time period
+            </mat-error>
+    </mat-form-field>
+</div>
+
+  <div class="selection-field col-md-12 col-sm-12 col-12 text-center" style="margin: 10px 0;" >
+    <button [disabled]="!f.valid" type="submit" (click)="downloadReport()" class="submit-selection" style="margin-top: 0px;"
+      >Download Health Action Plan</button>
+  </div>
+  </form>
+  </div>
+  </div>
+</div>
+<!-- <pre>{{areaId | json}} </pre> -->
+
+<div class="modal fade" id="errorMatch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-notify modal-error" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <p class="heading lead">Error</p>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text">
+                    <p> No Data Found </p>
+                </div>
+                <button type="button" class="btn btn-secondary m-auto d-block modal-btn" (click)="errorModal()">Ok</button>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+<div class="modal fade" id="fieldMatch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-notify modal-error" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <p class="heading lead">Error</p>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text">
+                    <p> All fields must be selected </p>
+                </div>
+                <button type="button" class="btn btn-secondary m-auto d-block modal-btn" (click)="fieldModal()">Ok</button>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>

@@ -1,0 +1,83 @@
+$primary-color:#2f515b;
+
+.login-form-container{
+    height: auto;
+    background-color: white;
+    box-shadow:  -1px 3px 25px gray;
+    position: absolute;
+      width: 350px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .login-submit {
+    width: 100%;
+    margin: 10px 0 0;
+    padding: 0.65rem 2.13rem;
+    background-color: $primary-color !important;
+  }
+  .modal-header{
+    border-bottom: 0;
+  }
+  .modal-footer{
+    border-top: 0;
+  }
+  label{
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .login-header.col-md-12 {
+    height: 50px;
+    /* background:linear-gradient(to right ,#6fbfcc,#243a51); */
+    padding: 10px;
+    color: $primary-color;
+    font-family: sans-serif;
+    font-size: x-large;
+    
+  }
+  .modal-header h4{
+    text-align: center;
+      font-size: large;
+      color: $primary-color;
+      font-weight: bolder;
+  }
+  .container-body {
+    padding: 20px;
+    padding-top: 0;
+  }
+  label.name {
+    display: none;
+  }
+  .country {
+    margin-top: 20px;
+  }
+  input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime-local], input[type=tel], input[type=number], input[type=search-md], input[type=search], textarea.md-textarea {
+    
+    border-bottom: 1px solid #CCCC;
+    box-sizing: border-box;
+    height: 33px;
+    font-size: 13px;
+   
+  }
+  .error-message{
+    text-align: center;
+    color: rgb(245, 72, 72);
+    display: none;
+  }
+  
+  @media(max-width: 767px){
+  .modal-dialog.modal-side.modal-bottom-right {
+    position: relative;
+    margin: auto;
+    margin-top: 100px;
+    right: auto;
+    left: auto;
+  }
+  }
+  @media(max-width: 575px) {
+    .modal-dialog{
+      max-width: 90%;
+      margin-left: 5%;
+    }
+  }

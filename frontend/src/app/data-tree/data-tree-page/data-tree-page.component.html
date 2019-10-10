@@ -1,0 +1,222 @@
+<div id="wrapper">
+	<div id="containerId" class="content">
+		<div class="container-fluid">
+<div  class="row mar-bot-10" style="margin: 20px auto ">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-2 page-title-head">
+        <h3 class="page_header">Data Tree</h3>
+      </div>
+
+      <div class="col-md-8">
+
+      </div>
+      <div class="col-md-1 disclaimerText offset-md-1" >
+        <i class="fa fa-lg fa-info-circle float-right" style="cursor : pointer"  data-toggle="modal" data-target="#helpModal" data-backdrop="static"
+          data-keyboard="false"></i>
+      </div>
+    </div>
+    <div class="row" style="margin-left: -29px; margin-right: -29px; margin-bottom: 10px;">
+      <!-- <div class="col-md-12 col-sm-12" style="margin-bottom: 10px;"> -->
+
+      <div class="select-container text-center col-md-2 dist-list">
+        <div id="selectedStateDrop" class="input-group btn-group" dropdown>
+          <input type="text" placeholder="Filter State" id="state" class="form-control not-visible-input" [ngClass]="!isColor && !isValue ?'':'input-text'"
+            name="district" readonly="" [(ngModel)]="selectedState.areaName" [disabled]="!isColor && !isValue">
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown" class="btn btn-color " dropdownToggle [disabled]="allStates.length<=1"
+              class="btn btn-color px-3 ">
+              <i class="fa fa-list"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectedStateDrop')}">
+              <li class="dropdown-item" *ngFor="let state of allStates" [ngClass]="{'allDistDropdown': $index == 0}"
+                (click)="selectState(state)">{{state.areaName}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="select-container text-center col-md-2 dist-list">
+        <div id = "selectPrograme" class="input-group btn-group" dropdown>
+          <input  type="text" placeholder="Filter Program" id="program" class="form-control not-visible-input" [ngClass]="!isColor && !isValue ?'':'input-text'"
+            name="district" readonly="" [(ngModel)]="selectedProgram.programName" [disabled]="!isColor && !isValue">
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown" class="btn btn-color " dropdownToggle [disabled]="programList.length<=1"
+              class="btn btn-color px-3 ">
+              <i class="fa fa-list"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectPrograme')}">
+              <li class="dropdown-item" [hidden]="program.programId == 8" *ngFor="let program of programList" [ngClass]="{'allDistDropdown': $index == 0}"
+                (click)="selectProgram(program)">{{program.programName}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="select-container text-center col-md-2 dist-list" *ngIf="allTimePeriods.length">
+        <div id="selecttimeperiod" class="input-group btn-group" dropdown>
+          <input type="text" placeholder="Timeperiod" id="timeperiod" class="form-control not-visible-input" [ngClass]="(!isColor && !isValue) || allTimePeriods.length<2 ?'':'input-text'"
+            name="district" readonly="" [(ngModel)]="selectedTimePeriod.timePeriod" [disabled]="true">
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown" class="btn btn-color  px-3 " dropdownToggle
+              type="button" [disabled]="(!isColor && !isValue) || allTimePeriods.length<2">
+              <i class="fa fa-calendar"></i>
+            </button>
+            <ul class="dropdown-menu" [ngStyle]="{'width.px': getWidth('selecttimeperiod')}" role="menu">
+              <li class="dropdown-item" *ngFor="let timeperiod of allTimePeriods" (click)="selectTimePeriod(timeperiod)">{{timeperiod.timePeriod}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="select-container text-center col-md-3 dist-list">
+        <div id="selectDistrict" class="input-group btn-group" dropdown>
+          <input type="text" placeholder="Filter District" id="district" class="form-control not-visible-input"
+            [ngClass]="!isColor && !isValue ?'':'input-text'" name="district" readonly="" [(ngModel)]="selectedDistrict.areaName">
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown" class="btn btn-color  px-3 " dropdownToggle
+              type="button" [disabled]="!isColor && !isValue">
+              <i class="fa fa-list"></i>
+            </button>
+            <ul class="dropdown-menu" [ngStyle]="{'width.px': getWidth('selectDistrict')}" role="menu">
+              <li class="dropdown-item" *ngFor="let district of allDistricts ;index as i" [ngClass]="{'allDistDropdown': i == 0}"
+                (click)="selectDistrict(district)">{{district.areaName}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="select-container select-container text-center col-md-3">
+        <div class="input-group btn-group" id="searchDiv">
+          <input class="form-control not-visible-input" [ngClass]="!isColor && !isValue ?'':'input-text'" type="text"
+            id="search" placeholder="Search Facility" autocomplete="off" [disabled]="!isColor && !isValue">
+          <div class="input-group-btn" style="position: relative;">
+            <button class="btn btn-color   px-3 " dropdownToggle id="searchButton"
+               [disabled]="!isColor && !isValue">
+              <i class="fa fa-lg fa-search search-button-dataTree"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <!-- </div> -->
+    </div>
+    <div class=" row tree-bubble-container" *ngIf="selectedState">
+      <div class="col-md-6 tree-tab">
+        <div id="myTabContent" class="tab-content chart-container-tab">
+          <div id="home" class="tree-chart-container">
+            <sdrc-data-tree  [dataTreeData]="dataTreeData"  (selectedSector)="getbubbledata($event)"></sdrc-data-tree>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 bubble-tab">
+
+
+        <div class="chart-container-tab">
+          <div class="text-right">
+
+            <button id="btnColorBubble" type="button" class="btn btn-default bubble-chart-btn button mar-top-10"
+              [hidden]="!isColor" (click)="setBackTrue()">By Color</button>
+            <button id="btnSortBubble" type="button" style="margin-right: 3px" class="btn btn-default bubble-chart-btn button mar-top-10"
+            [hidden]="!isValue" (click)="setBackTrue()">By Value</button>
+            <button id="btnBack" type="button" style="margin-right: 3px" class="btn btn-default bubble-chart-btn button mar-top-10"
+            [hidden]="!isBkBtn" (click)="setBackFalse();setColorTrue();setValueTrue();setImagePath();">
+              <i class="fa fa-lg fa-arrow-circle-o-left"></i>&nbsp; Back
+            </button>
+
+
+          </div>
+
+
+
+
+
+
+          <section class="legendsDataTree dataTreeLegend">
+            <!-- 							<ul> -->
+            <div class="bubble-legend">
+              <div>0 - 59</div>
+              <div class="firstslicesTree"></div>
+              <div class="bubble-counter" [ngClass]="{'novisible': !isColor && !isValue}">{{redBubbleCount}}</div>
+            </div>
+            <div class="bubble-legend">
+              <div>60 - 79</div>
+              <div class="secondslicesTree"></div>
+              <div class="bubble-counter" [ngClass]="{'novisible': !isColor && !isValue}">{{yellowBubbleCount}}</div>
+            </div>
+            <div class="bubble-legend">
+              <div>80 - 100</div>
+              <div class="thirdslicesTree"></div>
+              <div class="bubble-counter" [ngClass]="{'novisible': !isColor && !isValue}">{{greenBubbleCount}}</div>
+            </div>
+            <!-- 							</ul> -->
+          </section>
+
+
+
+          <div class="mar-top-5"></div>
+          <div class="">
+            <div id="myTabContent1" class="tab-content">
+              <div id="home1" class="">
+                <sdrc-bubble-chart *ngIf="bubbleDataModel" 
+                [bubbleChartData]="bubbleDataModel"   [timeperiodId]="selectedTimePeriod.timePeriod_Nid" [sectorId]="selectedSector.Id" 
+                (forceLayoutCalled)="forceLayoutCalled()" (forceLayoutHover)="forceLayoutHover($event)"></sdrc-bubble-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="trend-viz bubbleDetailView animate-show pull-right" style="width: 35%; position: absolute; left: 466px; top: 410px;"
+  id="scrollingDiv" ng-animate=" 'animate' " *ngIf="isTrendVisible">
+
+  <div id="datatreepopovercontent" class="datatree_popover_content"></div>
+</div>
+<div id="helpModal" class="modal fade" role="dialog">
+  <div class="modal-dialog helpModaldialog">
+
+    <!-- Modal content-->
+    <div class="modal-content helpModalContent">
+      <div class="modal-body">
+        <i style="float: right;"
+          class="fa fa-2x fa-times-circle helpCloseBtn" data-dismiss="modal"></i>
+        <img id="helpImg" alt="" [src]="imagePath"
+          style="width: 100%; height: auto;">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="noDataModall" role="dialog" style="margin-top: 12%;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content modal-info">
+      <div class="modal-header" style="background-color: #2f515b; color: #fff;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title" style="text-align: center;">Info</h4> -->
+      </div>
+      <div class="modal-body">
+        <p style="text-align: center; font-size: 20px; margin-bottom: -10px;">NO
+          DATA AVAILABLE</p>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default btn-view text-center" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+
+  </div>
+</div>

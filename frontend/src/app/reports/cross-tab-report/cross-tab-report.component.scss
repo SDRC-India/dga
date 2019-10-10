@@ -1,0 +1,36 @@
+#dataTable.table-bordered{
+    border: none;
+    
+}
+#dataTable th{
+    border-top: 1px solid #ddd;
+    border-bottom: none;
+    background-color: #f4f4f4;
+}
+#dataTable.table-no-total td:first-child{
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #000;
+    
+}
+    #dataTable.table-no-total td{
+    text-align:center;
+}
+#dataTable.table-no-total td:first-child{
+    background-color: #f4f4f4;
+    color: #000;
+    text-align:left;
+}
+
+.row
+{
+
+    margin-left: 2px !important;
+    margin-right: 2px !important
+}
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+#card {
+    width : 65% ;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.download{
+    text-align: right;
+}
+
+.reset{
+    text-align: left;
+}
+
+#pointer {
+    cursor: pointer;
+}
+
+.modalButton{
+    float: right;
+}
+.errorModelHeder{
+    background-color: #dc3545;
+}
+.succesModelHeder{
+    background-color: #28a745;
+}

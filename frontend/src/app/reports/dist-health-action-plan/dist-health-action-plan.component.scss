@@ -1,0 +1,221 @@
+.user-heading {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    color: #2f515b;
+    margin-bottom: 20px;
+    padding-bottom: 7px;
+    width: 100% !important;
+  }
+  .content-sec {
+    padding-top: 15px;
+    margin-left: 30%;
+  }
+  .text-center{
+    top: 20px;
+    width: fit-content !important;
+  }
+  span.field_mandatory{
+  font-size: 11px !important;
+}
+
+.content-sec-other{
+  padding-top: 15px;
+  margin-left: 0;
+}
+  .user-label{
+    max-width: 18.666667% !important;
+  }
+
+.selection-fields{
+  display: inline-grid;
+}
+
+button.submit-selection :disabled{
+  background-color: #718185;
+}
+
+.marg-left{
+  left: 90px;
+}
+.marg-left-other{
+  left: 0px;
+  top: 20px;
+}
+
+  .left-list {
+    height: 100%;
+    width: 30%;
+    background-color: #21353a;
+    padding-top: 80px;
+    padding-right: 0;
+    position: absolute;
+    right: 1012px;
+}
+  .user-heading {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    color: #2f515b;
+    margin-bottom: 20px;
+    padding-bottom: 7px;
+    width: 130%;
+  }
+  .btn.user-submit {
+    background-color: #2f515b;
+    border-radius: 0;
+    width: 120px;
+    color: #FFF;
+  }
+  #passNotMatch .modal-header, #successMatch .modal-header{
+    height: 39px;
+    padding: 3px 14px;
+  }
+  p.heading.lead {
+    font-weight: bold;
+    color: #333;
+  }
+  .user-man-btn{
+    margin-top: 10px;
+  }
+  .modal-body p{
+    text-align: center;
+  }
+  .modal-btn {
+    border-radius: 0;
+    background-color: #2f515b !important;
+  }
+  input.nospinner[type=number]::-webkit-inner-spin-button, 
+  input.nospinner[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+  .material-error{
+    color: #f44336;
+    font-size: 75%;
+    margin-top: -18px;
+    margin-bottom: 12px;
+    font-weight: 400;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+  }
+  
+  /** media query starts here **/
+  @media screen and (max-width: 1280px){
+    .left-list {
+      height: 100%;
+      width: 30%;
+      background-color: #21353a;
+      padding-top: 80px;
+      padding-right: 0;
+      position: absolute;
+      right: 952px;
+  }
+   }
+
+  @media screen and (max-width: 1200px){
+
+    .left-list {
+      height: 100%;
+      width: 30%;
+      background-color: #21353a;
+      padding-top: 80px;
+      padding-right: 0;
+      position: absolute;
+      right: 900px;
+  }
+  .content-sec {
+    padding-top: 15px;
+    margin-left: 27%;
+  }
+  .user-heading {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 7px;
+    width: 115%;
+  }
+  }
+
+  @media screen and (max-width: 1024px){
+    .left-list{
+      right: 768px;
+    }
+    .content-sec {
+      padding-top: 15px;
+      margin-left: 24%;
+    }
+    .marg-left{
+      left: 15px;
+    }
+    .user-heading {
+      font-size: 24px;
+      font-weight: 600;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 7px;
+      width: 102%;
+    }
+  }
+
+  @media screen and (max-width: 991px){
+    .left-list{
+      right: 758px;
+    }
+    .marg-left-other{
+      left: 13px;
+    }
+  }
+  @media screen and (max-width: 768px){
+    .content-sec {
+      padding-top: 15px;
+      margin-left: 0;
+    }
+    .marg-left-other{
+      left: 5px;
+    }
+    .left-list{
+      right: 768px;
+    }
+  }
+
+  @media(max-width: 767px){
+    .marg-left-other{
+      left: 0px;
+    }
+    .mat-form-field-infix{
+      border-top-width: 0px !important;
+    }
+    label{
+      margin-bottom: 0;
+    }
+  }
+  @media screen and (max-width: 600px){
+    .btn.user-submit{
+      margin-bottom: 10px;
+    }
+  }
+  @media screen and (max-width: 560px){
+    .user-heading {
+      font-size: 20px;
+      font-weight: 600;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 7px;
+      width: 102%;
+    }
+    .marg-left{
+      left: 5px;
+    }
+
+  }
+
+ 

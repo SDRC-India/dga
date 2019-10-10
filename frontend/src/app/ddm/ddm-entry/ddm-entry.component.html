@@ -1,0 +1,43 @@
+<mat-card id="card">
+  <!-- <div class="col-md-12 download">
+          <div class="download-btn">
+          <i class="material-icons back-arrow save-button" (click)="htmltoPDF()" id = "pointer"> description </i>
+          </div>
+          <span class="download-text">Download</span> 
+      </div> -->
+
+  <mat-card-title *ngIf="selectedSection"><h4>{{selectedSection.sectionOrder}}. {{sectionName}}</h4></mat-card-title>
+  <mat-card-content>
+
+      <sdrc-form [numberOfColumn]="1" [questionArray]="formSections" (onSubmit)="saveForm(formSections)" #sdrcForm></sdrc-form>
+  </mat-card-content>  
+  <button mat-raised-button  color="primary"
+  class="btn btn-default login-submit" (click)="finalizeClicked()">Submit</button>  
+</mat-card>
+
+<!-- -Modal Start homePage -->
+<div class="modal fade" id="successModal" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog" style="padding-top: 25vh">
+	  <div class="modal-content info-modal-content">
+		<!-- Modal Header -->
+		<div class="modal-header" style="background: #2f515b !important;">
+			<p class="modal-header-icon">
+				<i class="fa fa-check-circle" aria-hidden="true" style="font-size: 0.9rem"></i>
+					<label class="modal-title" style="color:#fff !important;font-size: 0.9rem">
+						Success</label>
+			</p>
+		  <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+		</div>
+		
+		<!-- Modal body -->
+		<div class="modal-body log-out-info padding-zero" style="min-height: 10vh;display: flex;align-items: center;justify-content: center">
+			<p>Form submitted successfully</p>
+		</div>
+		<!-- Modal footer -->
+		<div class="modal-footer" style="border-top:0px">
+		  <button style="background-color: black" type="button" class="btn btn-secondary info-btn" data-backdrop="static" data-keyboard="false" (click)="goBack()" >OK</button>
+		  </div>
+	  </div>
+	</div>
+  </div>
+

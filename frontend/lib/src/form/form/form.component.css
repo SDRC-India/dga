@@ -1,0 +1,159 @@
+:host >>> .mat-form-field{
+    width: 100%;
+}
+/* :host >>> .mat-form-field-infix{
+    border-top: 1px solid #999;
+    border: 1px solid #999;
+    border-bottom: none;
+    padding-left: 6px;
+    padding-right: 6px;
+} */
+.mat-pseudo-checkbox-checked:after {
+    width: 10px !important;
+    height: 5px !important;
+}
+
+:host >>> .mat-form-field {
+    display: block;
+}
+:host >>> .mandatory{color:red;}
+
+:host >>> .mat-form-field-suffix{
+    height: 29px;
+    padding-top: 2px;
+    border-top: 1px solid #adadad;
+    border-right: 1px solid #adadad;
+}
+.btn-margin{
+    margin-left: 15px;
+}
+.paddingtop{padding-top:5px;}
+.padding-mintop{padding-top:5px;}
+.margin-bottom{margin-bottom: 6px;}
+.margin-mintop{margin-top:7px;}
+.formpadding{padding-top:10px;}
+mat-checkbox#mat-checkbox-1 {
+    padding-right: 15px;
+}
+mat-radio-button#mat-radio-2 {
+    padding-right: 10px;
+}
+.uploadphotoerror{color:#f44336;font-size: 75%}
+mat-checkbox#mat-checkbox-2 {
+    padding-right: 15px;
+   
+}
+.errormssgeront{font-size: 80%;}
+.lineheight{line-height: 5%}
+form{
+    margin-bottom: 10px;
+}
+.mat-radio-button,.mat-checkbox {
+    margin: 10px;
+}
+.repeat {
+    padding: 10px;
+    margin: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 5px 2px rgb(245, 192, 165);
+}
+
+#map {
+    width: 100%;
+    height: 250px;
+}
+.remove-button {
+    top: -18px;
+    cursor: pointer !important;
+}
+.fileuploded{
+    background-color: green;
+    color: white;
+    margin-top:10px
+}
+.modal-dialog {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0.5rem !important;
+}
+.modal-body {
+  padding-bottom: 0rem;
+}
+embed:focus { 
+    outline: none;
+  }
+.paddingLeft{
+    padding-left:20px;
+}
+
+.addbutton-inmates{
+    text-align: left;
+}
+.plus{
+    font-weight: 600;
+    font-size: 17px;
+    font-weight: 600;
+    font-size: 19px;
+    background-color: #ab7253;
+    border-radius: 50%;
+    padding: 4px;
+    color: white;
+    cursor: pointer;
+}
+.add-new{
+    font-size: 14px;
+    padding-left: 5px;
+    vertical-align: top;
+    line-height: 2;
+}
+.asterisk-mark{
+    color:red;
+    font-size:16px
+}
+.beginRepeatImageRow img {
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px;  /* Rounded border */
+    padding: 5px; /* Some padding */
+    width: 150px; /* Set a small width */
+}
+      
+      /* Add a hover effect (blue shadow) */
+.beginRepeatImageRow   img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border: 1px solid rgba(0,0,0,.125);
+}
+      
+      /* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+          
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+.photo-repeat {
+    padding: 10px;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+.repeat-img{
+    width:180px;
+    height: 150px; 
+    border-radius: 50%
+}
+

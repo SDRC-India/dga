@@ -1,0 +1,258 @@
+.content-sec {
+  padding-top: 15px;
+  margin-left: 18%;
+}
+
+.waves-light, .waves-light:hover, .waves-light:focus{
+    background-color: #1f497b !important;
+  }
+  .user-label{
+    max-width: 18.666667% !important;
+  }
+  // .data-error, .modal .err-btn {
+  //   background-color: #af1926 !important;
+  // }
+
+
+  span.field_mandatory{
+    font-size: 11px !important;
+  }
+  .left-list {
+    height: 105%;
+    width: 30%;
+    background-color: #80a7e0;
+    padding-top: 80px;
+    position: absolute;
+}
+.user-heading {
+  font-size: 1.75em;
+  font-weight: 500;
+  text-align: left;
+  // border-bottom: 1px solid #1f4a7c;
+  // color: #1f4a7c;
+  margin-bottom: 20px;
+  padding-bottom: 7px;
+}
+
+.left-list {
+  height: 100%;
+  width: 30%;
+  background-color: #21353a;
+  padding-top: 80px;
+  padding-right: 0;
+  position: absolute;
+  right: 1012px;
+}
+
+// .user-heading {
+//   font-size: 24px;
+//   font-weight: 600;
+//   text-align: left;
+//   border-bottom: 1px solid #333;
+//   color: #2f515b;
+//   margin-bottom: 20px;
+//   padding-bottom: 7px;
+//   width: 121%;
+// }
+
+.marg-left{
+  left: 85px;
+}
+.btn.user-submit {
+  background-color: #2f515b;
+  border-radius: 0;
+  width: 120px;
+  color: #FFF;
+}
+#oldPassNotMatch .modal-header, #successMatch .modal-header{
+  height: 39px;
+  padding: 3px 14px;
+}
+p.heading.lead {
+  font-weight: bold;
+  color: #2f515b;
+}
+.user-man-btn{
+  margin-top: 10px;
+}
+.modal-btn {
+  border-radius: 0;
+  background-color: #2f515b;
+}
+input.nospinner[type=number]::-webkit-inner-spin-button, 
+input.nospinner[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+mat-form-field{
+  left: 10px;
+}
+ /** media query starts here **/
+
+ @media screen and (min-width: 1920px){
+
+  .left-list {
+    height: 100%;
+    width: 30%;
+    background-color: #21353a;
+    padding-top: 80px;
+    padding-right: 0;
+    position: absolute;
+    left: 0px;
+}
+.content-sec {
+  padding-top: 25px;
+  margin-left: 27% !important;
+}
+.marg-left{
+  left: 256px;
+  top: 100px;
+}
+ }
+
+ @media screen and (min-width: 1680px){
+
+  .left-list {
+    height: 100%;
+    width: 30%;
+    background-color: #21353a;
+    padding-top: 80px;
+    padding-right: 0;
+    position: absolute;
+    left: 0px;
+}
+.content-sec {
+  padding-top: 25px;
+  margin-left: 23% !important;
+}
+.marg-left{
+  left: 256px;
+}
+ }
+
+
+ @media screen and (min-width: 1440px){
+
+  .left-list {
+    height: 100%;
+    width: 30%;
+    background-color: #21353a;
+    padding-top: 80px;
+    padding-right: 0;
+    position: absolute;
+    right: 1080px;
+}
+
+.content-sec {
+  padding-top: 15px;
+  margin-left: 19%;
+}
+
+}
+
+ @media screen and (max-width: 1280px){
+  .left-list {
+    height: 100%;
+    width: 30%;
+    background-color: #21353a;
+    padding-top: 80px;
+    padding-right: 0;
+    position: absolute;
+    right: 952px;
+}
+ }
+
+
+ @media screen and (max-width: 1200px){
+
+  .left-list {
+    height: 100%;
+    width: 30%;
+    background-color: #21353a;
+    padding-top: 80px;
+    padding-right: 0;
+    position: absolute;
+    right: 900px;
+}
+.content-sec {
+  padding-top: 14px;
+  margin-left: 18%;
+}
+.user-heading {
+  font-size: 1.75em;
+  font-weight: 500;
+  text-align: left;
+  // border-bottom: 1px solid #333;
+  // color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 7px;
+  width: 115%;
+}
+}
+
+@media screen and (max-width: 1024px){
+  .left-list{
+    right: 768px;
+  }
+  .marg-left{
+    left: 85px;
+  }
+  .user-heading {
+    font-size: 1.75em;
+    font-weight: 500;
+    text-align: left;
+    // border-bottom: 1px solid #333;
+    // color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 7px;
+    width: 123%;
+  }
+}
+
+@media screen and (max-width: 991px){
+  .left-list{
+    right: 758px;
+  }
+}
+@media screen and (max-width: 768px){
+  .left-list{
+    right: 591px;
+  }
+
+}
+
+@media screen and (max-width: 768px){
+  .content-sec{
+    padding-top: 14px;
+    margin-left: 0%;
+  }
+  .user-heading{
+    font-size: 1.75em;
+    font-weight: 500;
+    text-align: left;
+    // border-bottom: 1px solid #333;
+    // color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 7px;
+    width: 100%;
+  }
+  .mt-btn{
+    right: 72px;
+  }
+}
+
+@media screen and (max-width: 608px){
+  .mt-btn{
+    margin-bottom: 25px;
+  }
+
+}
+@media screen and (max-width: 360px){
+  .marg-left{
+    left: 10px;
+  }
+  .mt-btn{
+    right: 5px;
+  }
+}

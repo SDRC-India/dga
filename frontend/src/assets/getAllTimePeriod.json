@@ -1,0 +1,26 @@
+[
+    {
+        "timePeriodId": 3,
+        "startDate": "2019-01-20",
+        "endDate": "2019-02-20",
+        "timeperiod": "Phase 3 (Jan 2019)",
+        "shortName": "Phase 3 (Jan 2019)",
+        "perodicity": 1
+    },
+    {
+        "timePeriodId": 2,
+        "startDate": "2016-06-20",
+        "endDate": "2016-06-20",
+        "timeperiod": "Phase 2 (Dec 2017)",
+        "shortName": "Phase 2 (Dec 2017)",
+        "perodicity": 1
+    },
+    {
+        "timePeriodId": 1,
+        "startDate": "2016-06-20",
+        "endDate": "2016-06-20",
+        "timeperiod": "Phase 1 (Dec 2016)",
+        "shortName": "Phase 1 (Dec 2016)",
+        "perodicity": 1
+    }
+]

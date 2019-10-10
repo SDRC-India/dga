@@ -1,0 +1,80 @@
+.header-fixed { 
+    position: absolute; 
+    display:none;
+    z-index: 1;
+    overflow: hidden;
+    margin-right: 15px;
+    // width: auto;
+}
+.parent-tabl-container{
+    position: relative;
+}
+
+table thead{
+    background-color: #187080;
+    color: #FFF;
+}
+td{
+    text-align: center;
+}
+table thead th{
+    vertical-align: middle;
+    text-align: center;
+//    min-width: 75px;
+}
+.pagination-view
+{
+    float:right;
+}
+#myInput {
+    width: 100%;
+    border-radius: 0;
+    font-size: 16px; 
+    padding: 7px 20px 12px 30px;
+    font-style: inherit;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    box-shadow: 0px 0px 2px 0px;
+}
+.table-btn.search .form-group{
+    position: relative;
+}
+.table-btn.search .form-group:before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 5px;
+    left: 7px;
+    color: #9c9c9c;
+    content: "\f002";
+  }
+
+.search-area
+{
+    font-style: italic;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+input[type="text"] 
+{
+    font-style:italic;
+}
+.table-btn .btn-excel, .table-btn .btn-pdf{
+    margin-bottom: 16px;
+    background-color: #357080;
+    color: #FFF;
+    border-radius: 0;
+}
+.btn-excel:focus, .btn-excel:active{
+    outline: none !important;
+    border: none !important;
+}
+.fa-sorting{
+    cursor: pointer;
+}
+.table-btn {
+    display: inline-block;
+    float: right;
+    margin: 0 5px;
+    // margin-bottom: 15px;
+}

@@ -1,0 +1,128 @@
+<div class="container-fluid">
+  <div class="row question-row">
+      <div class="mob-left-list" (click)="showLists();">Menu</div>
+      <div class="col-md-3 left-list">
+          <app-user-side-menu></app-user-side-menu>
+      </div>
+      <div class="right-content">
+      <div class="col-md-9 content-sec offset-md-3">
+          <div class="col-md-10 offset-md-1">
+              <h2 class="user-heading">Update User Details</h2>
+              <form class="all-fields row" #f="ngForm" (submit)="f.valid ?updateUserDetails(userManagementService.editUserDetails.roleId):''">
+                  <div class="selection-fields col-md-6">
+                      <label for="usr">Full Name<span style="color:red; font-weight:500;">*</span> :</label>
+                      <mat-form-field>
+                          <input matInput name="name" [(ngModel)]="userManagementService.editUserDetails.name" required pattern="^[a-zA-Z][a-zA-Z\s\.\./]+$">
+                          <mat-error class="padding-bottom ">
+                            {{f.controls['name']?.errors?.pattern ? 'Only characters, dot(.) and space can be accepted':'Please provide full name'}}                               
+                        </mat-error>
+                      </mat-form-field>
+                  </div>
+                  <div class="selection-fields col-md-6">
+                      <label for="usr">Mobile No.<span style="color:red; font-weight:500;">*</span> :</label>
+                      <mat-form-field>
+                          <input matInput class="nospinner" type="text" pattern="\d*" maxlength="10" minlength="10" name="mobile" [(ngModel)]="userManagementService.editUserDetails.mobileNumber" required>
+                          <mat-error class="padding-bottom ">
+                              {{f.controls['mobile']?.errors?.pattern ? 'Only digits can be accepted':'Please provide 10 digit mobile number'}}
+                          </mat-error>
+                      </mat-form-field>
+                  </div>
+                  <div class="selection-fields col-md-6">
+                      <label for="usr">Username<span style="color:red; font-weight:500;">*</span> :</label>
+                      <mat-form-field>
+                          <input matInput name="username" [disabled]="userManagementService.editUserDetails.userName" [(ngModel)]="userManagementService.editUserDetails.userName" required>
+                          <mat-error class="padding-bottom ">
+                              Please provide username
+                          </mat-error>
+                      </mat-form-field>
+                  </div>   
+                  <div class="selection-fields col-md-6">
+                      <label for="usr">User Role<span style="color:red; font-weight:500;">*</span> :</label>
+                      <mat-form-field>
+                          <mat-select [(ngModel)]="userManagementService.editUserDetails.designationId" name="role" (selectionChange)="selectedDistrictId = undefined; facilities=[];selectedFacilityId=undefined;" required>
+                              <mat-option *ngFor="let opt of userManagementService.formFieldsAll" [value]="opt.id">
+                                  {{opt.name}}
+                              </mat-option>
+                          </mat-select>
+                          <mat-error class="padding-bottom ">
+                              Please provide user role
+                              </mat-error>
+                      </mat-form-field>
+                  </div>
+
+                  <!-- <div class="selection-fields col-md-6">
+                      <label for="usr">District<span style="color:red; font-weight:500;">*</span> :</label>
+                      <mat-form-field>
+                          <mat-select name="district" [(ngModel)]="selectedDistrictId" (selectionChange)="selectedFacilityId=undefined;getFacilities()" required>
+                              <mat-option *ngFor="let dist of userManagementService.areaDetails | areaFilter:3:2" [value]="dist.areaId">
+                                  {{dist.areaName}}
+                              </mat-option>
+                          </mat-select>
+                          <mat-error class="padding-bottom ">
+                              Please provide district name
+                          </mat-error>
+                      </mat-form-field>
+                  </div> -->
+                  <div class="selection-fields col-md-6" *ngIf="userManagementService.editUserDetails.designationId == 1">
+                    <label for="usr">Facility<span style="color:red; font-weight:500;">*</span> :</label>
+                    <mat-form-field>
+                        <mat-select name="facility" [(ngModel)]="selectedFacilityId" [required]="userManagementService.editUserDetails.designationId==1">
+                            <mat-option *ngFor="let dist of facilities" [value]="dist.facilityId">
+                                {{dist.nameAndAddress}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error class="padding-bottom ">
+                            Please provide facility
+                            </mat-error>
+                    </mat-form-field>
+                </div>
+                  <div class="form-group" [ngClass]="userManagementService.editUserDetails.designationId && userManagementService.editUserDetails.designationId == 1?'col-md-12 text-center mt-btn':'col-md-6 text-left mt-btn'">
+                      <button class="btn btn-default proceed-btn user-submit" type="submit">Update</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+   </div>
+  </div>
+
+  <div class="modal fade" id="successMatch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-notify modal-error" role="document">
+          <!--Content-->
+          <div class="modal-content">
+              <!--Header-->
+              <div class="modal-header">
+                  <p class="heading lead">Success</p>
+              </div>
+
+              <!--Body-->
+              <div class="modal-body">
+                  <div class="text-center">
+                      <p> {{validationMsg}}</p>
+                  </div>
+                  <button type="button" class="btn btn-secondary m-auto d-block modal-btn" (click)="successModal()">Ok</button>
+              </div>
+          </div>
+          <!--/.Content-->
+      </div>
+  </div>
+
+  <div class="modal fade" id="oldPassNotMatch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-notify modal-error" role="document">
+          <!--Content-->
+          <div class="modal-content">
+              <!--Header-->
+              <div class="modal-header data-error">
+                  <p class="heading lead">Error</p>
+              </div>
+
+              <!--Body-->
+              <div class="modal-body">
+                  <div class="text-center">
+                      <p>{{validationMsg}}</p>
+                  </div>
+                  <button type="button" class="btn btn-secondary m-auto d-block modal-btn" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+          <!--/.Content-->
+      </div>
+  </div>

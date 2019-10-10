@@ -1,0 +1,199 @@
+<div id="mymain" class="container-fluid col-md-12 min-height-wrap">
+  <div class="selection row col-md-12" name="selctionForm" style="margin-bottom: -10px">
+    
+    <div class="select-container text-center col-md-3">
+      <div class="input-group btn-group" dropdown id="selectProgram">
+        <input type="text" placeholder="Program *" id="program" class="form-control not-visible-input" name="program"
+          readonly="" [(ngModel)]="selectedProgram.iC_Name">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" class="btn btn-color  px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectProgram')}">
+            <li class="dropdown-item" *ngFor="let program of allPrograms" (click)="selectProgram(program)">{{program.iC_Name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="select-container text-center col-md-3">
+      <div class="input-group btn-group" dropdown id="selectFacilityTypes">
+        <input type="text" placeholder={{sceoundP}} id="facilityType" class="form-control not-visible-input" name="facilityType"
+          readonly="" [(ngModel)]="selectedFacility.iC_Name">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" class="btn btn-color  px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectFacilityTypes')}">
+            <li class="dropdown-item" *ngFor="let facility of allFacilities" (click)="selectFacility(facility)">{{facility.iC_Name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="select-container text-center col-md-2">
+      <div class="input-group btn-group" dropdown  id="selectSections">
+        <input type="text" placeholder="Section *" id="section" class="form-control not-visible-input" readonly=""
+          [(ngModel)]="selectedSection.iC_Name" required>
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectSections')}">
+            <li class="dropdown-item" *ngFor="let section of selectedFacility.children" (click)="selectSection(section)">{{section.iC_Name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="select-container text-center col-md-2">
+      <div class="input-group btn-group" dropdown id="selectSubsections">
+        <input type="text" placeholder="Subsection" id="subsection" class="form-control not-visible-input" readonly=""
+          [(ngModel)]="selectedSubsection.iC_Name">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" class="btn btn-color  px-3" type="button" [disabled]="selectedSection.children &&!selectedSection.children.length">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectSubsections')}">
+            <li class="dropdown-item" *ngFor="let subsection of selectedSection.children" (click)="selectSubsection(subsection)">{{subsection.iC_Name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="select-container text-center col-md-2">
+      <div class="input-group btn-group" dropdown id="timePeriods">
+        <input type="text" placeholder="Time Period *" id="timePeriod" class="form-control not-visible-input" readonly=""
+          [(ngModel)]="selectedTimepriod.timePeriod">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" class="btn btn-color px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('timePeriods')}">
+            <li class="dropdown-item" *ngFor="let timeperiod of sectorTimeperiods" (click)="selectTimeperiod(timeperiod)">{{timeperiod.timePeriod}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 text-right" style="margin: 10px 0 ;">
+      <button type="submit" class="submit-selection" (click)="getTableData()">Submit</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="tableDatas.length" id="main-content">
+    <button class="submit-selection" *ngIf="tableData.length"
+      style="float: right; background-color: #37393d;"
+     (click)="exportTableData('dataTable')">
+      <i class="fa fa-download" aria-hidden="true"></i> Download Excel
+    </button>
+    <div class=" table-responsive" style="width: 100% ; margin-bottom: 41px;">
+      <table items="tableData" show-filter="true" cellpadding="0"
+        cellspacing="0"class="dataTable table table-bordered"
+        id="dataTable" [ngClass]="{'dhSelected':selectedFacility.iC_NId==17}">
+        <thead >
+          <tr >
+            <th *ngFor="let column of columns "
+             style="position: relative;" (click)="sortType=column;sortReverse=sortReverse*-1">{{column}}
+              <div class="sorting1">
+                <i class="fa fa-caret-up asc" aria-hidden="true"
+                  [ngClass]="{'hiding': !(sortType != column || sortReverse == 1)}"></i>
+                <i class="fa fa-caret-down dsc" aria-hidden="true"
+                  [ngClass]="{'hiding': !(sortType != column || sortReverse == -1)}"></i>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let rowData of (tableData|tableDataSort:sortType:sortReverse) "
+             >
+            <td *ngFor="let column of columns" (click)="rowData['rowId']?getRawData(rowData):''"
+            [ngClass]="{'total': !rowData['rowId']}">{{(rowData[column])}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="divisionTable" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-body">
+					<button class="submit-selection" ng-if="tableData.length"
+				style="background-color: #37393d;"
+				ng-click="exportTableData('divisionalDataTable')">
+				<i class="fa fa-download" aria-hidden="true"></i> Download Excel
+			</button>
+			<button type="button" class="close" data-dismiss="modal">×</button>
+					<div class=" table-responsive" style="width: 100%">
+						<table items="tableData" show-filter="true" cellpadding="0"
+							cellspacing="0"  class="dataTable table table-bordered"
+							id="divisionalDataTable">
+							<thead>
+								<tr>
+									<th *ngFor="let column of divisionalTableColumns"
+								      style="position: relative;" (click)="sortType1=column;sortReverse1=sortReverse1*-1">{{column}}
+										<div class="sorting1">
+											<i class="fa fa-caret-up asc" aria-hidden="true"
+												[ngClass]="{'hiding': !(sortType1 != column || sortReverse1 == 1)}"></i>
+											<i class="fa fa-caret-down dsc" aria-hidden="true"
+												[ngClass]="{'hiding': !(sortType1 != column || sortReverse1 == -1)}"></i>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									*ngFor="let rowData of (divisionalTableData|tableDataSort:sortType1:sortReverse1)">
+									<td *ngFor="let column of divisionalTableColumns">{{rowData[column]}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+<div class="modal fade" id="errorMessage" role="dialog" style="margin-top: 12%;">
+  <div class="modal-dialog">
+
+    <div class="modal-content modal-info">
+      <div class="modal-header" style="background-color: #2f515b; color: #fff;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title" style="text-align: center;">Error</h4> -->
+      </div>
+      <div class="modal-body">
+        <p style="text-align: center; font-size: 20px; margin-bottom: -10px;">
+          Please select the {{errorMsg}}</p>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="submit-selection" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="noDataModall" role="dialog" style="margin-top: 12%;">
+  <div class="modal-dialog">
+
+    <div class="modal-content modal-info">
+      <div class="modal-header" style="background-color: #2f515b; color: #fff;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title" style="text-align: center;">Error</h4> -->
+      </div>
+      <div class="modal-body">
+        <p style="text-align: center; font-size: 20px; margin-bottom: -10px;">
+          No Data Available</p>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="submit-selection" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+

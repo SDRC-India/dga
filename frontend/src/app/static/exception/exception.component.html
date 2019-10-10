@@ -1,0 +1,20 @@
+<div class="content">
+  <div class="container-fluid text-center" >
+
+    <img src="./assets/images/exception.png" *ngIf="!commonService.isServerDown" style="margin-top: 120px" alt="DGA India"
+    />
+
+    <img src="./assets/images/serverError.jpg" *ngIf="commonService.isServerDown" style="margin-top: 120px" alt="DGA India"
+    />
+
+    <div class="hgroup clear" >
+      <h1>404</h1>
+      <h2>Error ! <span  *ngIf="!commonService.isServerDown">Page Not Found</span> 
+        <span  *ngIf="commonService.isServerDown">Could Not Connect to Server</span></h2>
+    </div>
+
+    <p *ngIf="!commonService.isServerDown"><a href="javascript:history.go(-1)">&laquo; Go Back</a> / <a href="">Go Home &raquo;</a></p>
+
+  </div>
+
+</div>

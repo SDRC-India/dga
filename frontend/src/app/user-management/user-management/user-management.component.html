@@ -1,0 +1,153 @@
+<div class="container-fluid">
+    <div class="row question-row">
+        <div class="mob-left-list" (click)="showLists();"></div>
+        <div class="col-md-3 left-list">
+            <app-user-side-menu></app-user-side-menu>
+        </div>
+        <div class="right-content">
+        <div class="col-md-9 content-sec offset-md-3">
+            <div class="col-md-10 offset-md-1">
+                <h2 class="user-heading">Create New User</h2>
+                <span class="field_mandate" style="color: #F00">*</span><span class="field_mandatory"> All fields are mandatory</span>
+                <div class="marg-left col-md-10 m-auto">
+                <form class="all-fields row" #f="ngForm" (submit)="f.valid ?submitForm(selectedRoleId, f):''">
+                    <div class="selection-fields col-md-6 col-sm-12">
+                        <label for="usr">Full Name<span style="color:red; font-weight:500;">*</span> :</label>
+                        <mat-form-field>
+                            <input matInput name="name" [(ngModel)]="fullName" required pattern="^[a-zA-Z][a-zA-Z\s\.\./]+$">
+                            <mat-error class="padding-bottom ">
+                                {{f.controls['name']?.errors?.pattern ? 'Only characters, dot(.) and space can be accepted':'Please provide full name'}}                               
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="selection-fields col-md-6 col-sm-12">
+                        <label for="usr">Username<span style="color:red; font-weight:500;">*</span> :</label>
+                        <mat-form-field>
+                            <input matInput name="username" [(ngModel)]="userName" required pattern="^[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$">
+                            <mat-error class="padding-bottom ">                               
+                                {{f.controls['username']?.errors?.pattern ? 'Only 3-15 characters,hyphen(-) and underscore(_) can be accepted':'Please provide username'}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="selection-fields col-md-6 col-sm-12">
+                        <label for="usr">Password<span style="color:red; font-weight:500;">*</span> :</label>
+                        <mat-form-field>
+                            <input matInput name="password" [(ngModel)]="password" required pattern="^\S*$">
+                            <mat-error class="padding-bottom ">
+                                {{f.controls['password']?.errors?.pattern ? 'Spaces are not accepted':'Please provide password'}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                  
+                    <div class="selection-fields col-md-6 col-sm-12">
+                        <label for="usr">User Roles<span style="color:red; font-weight:500;">*</span> :</label>
+                        <mat-form-field>
+                            <mat-select (selectionChange)="getArea(selectedRoleId)"  [(ngModel)]="selectedRoleId" name="role"
+                             (valueChange)="selectedDistrict = undefined;selectedState=undefined;userManagementService.districtLists=[]" required>
+                                <mat-option 
+                                *ngFor="let opt of userManagementService.formFieldsAll" [value]="opt.id">
+                                    {{opt.roleName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error class="padding-bottom ">
+                                Please provide user role
+                                </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="selection-fields col-md-6" *ngIf="selectedRoleId==1 ||selectedRoleId==3 || selectedRoleId==6 ">
+                        <label for="usr">State<span style="color:red; font-weight:500;">*</span> :</label>
+                        <mat-form-field>
+                            <mat-select (selectionChange)="getDistrict(selectedState)"  name="state" (valueChange)="selectedDistrict = undefined" [(ngModel)]="selectedState" required>
+                                <mat-option *ngFor="let state of userManagementService.stateLists" [value]="state">
+                                    {{state.areaName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error class="padding-bottom ">
+                                Please provide state name
+                                </mat-error>
+                        </mat-form-field>
+                </div>
+
+                    <div class="selection-fields col-md-6" *ngIf="selectedRoleId==3 || selectedRoleId==6">
+                        <label for="usr">District<span style="color:red; font-weight:500;">*</span> :</label>
+                        <mat-form-field>
+                            <mat-select name="district" [(ngModel)]="selectedDistrict" required>
+                                <mat-option *ngFor="let dist of userManagementService.districtLists" [value]="dist">
+                                    {{dist.areaName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error class="padding-bottom ">
+                                Please provide district name
+                                </mat-error>
+                        </mat-form-field>
+                </div>
+
+                <div class="selection-fields col-md-6" *ngIf="selectedRoleId==5">
+                        <label for="usr">Area<span style="color:red; font-weight:500;">*</span> :</label>
+                        <mat-form-field>
+                            <mat-select name="district" [(ngModel)]="selectedDistrict" required>
+                                <mat-option *ngFor="let dist of userManagementService.areaForGuest" [value]="dist">
+                                    {{dist.areaName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error class="padding-bottom ">
+                                Please provide area name
+                                </mat-error>
+                        </mat-form-field>
+                </div>
+
+                    <div class="form-group" class="col-md-12 mt-btn text-center">
+                        <button class="btn btn-default proceed-btn user-submit" type="submit" 
+                            >Create</button>
+                            <!-- [disabled]="!fullName || !mobile || mobile.toString().length != 10 || !userName || !password || !selectedRoleId || (selectedRoleId ==2 && !selectedDistrictId) ||  (selectedRoleId ==3 && !selectedBlockId)" -->
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+     </div>
+    </div>
+
+    <div class="modal fade" id="successMatch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-notify modal-error" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead">Success</p>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p> {{validationMsg}}</p>
+                    </div>
+                    <button type="button" class="btn btn-secondary m-auto d-block modal-btn" (click)="successModal()">Ok</button>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+
+    <div class="modal fade" id="oldPassNotMatch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-notify modal-error" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header data-error">
+                    <p class="heading lead">Error</p>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p>{{validationMsg}}</p>
+                    </div>
+                    <button type="button" class="btn btn-secondary m-auto d-block modal-btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>

@@ -1,0 +1,803 @@
+$primary-color:#2f515b;
+
+#nav_bar{
+    box-shadow: none;
+}
+/* $primary-color: $primary-color; */
+
+.lang-options { border-left: 1px solid #c5c5c5; }
+
+.setting-option {
+    display: inline-flex;
+}
+.setting-icon {
+    list-style: none;
+    padding: 6px 0 8px 0 !important;;
+}
+.setting-menu-icon {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.setting-icon:hover {
+    background-color: #c5c5c57a !important;
+}
+
+
+.setting-menu{
+    /* left: -112px; */
+    background-color: #ffffff !important;
+    border-radius: 0 !important;
+    top: 7px;
+    overflow: unset;
+    border: none;
+    top: 14px !important;
+    margin-left: -175%;
+}
+.right-container{
+    text-align: end !important;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+li.noEffect {
+    padding-left: 10px;
+}
+ul.nav.navbar-nav.nav-flex-icons.ml-auto.texr {
+    display: -webkit-inline-box;
+}
+li.noEffect:hover {
+    cursor: pointer !important;
+}
+li.dropdown.user-name{
+    cursor:default;
+}
+
+header{
+    background: $primary-color;
+    /* overflow: hidden; */
+}
+/* .nav-item .dropdown.show .dropdown-menu{
+    opacity: 1;
+    transform: translate3d(6px, 29px, 0px);
+    border-radius: 0;
+} */
+.logo-text{
+    
+    padding: 11px;
+    display: inline-block;
+    height: 89px;
+}
+.logo-text h2{
+    color: $primary-color;
+    font-size: 29px;
+    font-weight: 500;
+}
+.logo-text p{
+    font-weight: 500;
+    /* text-align: left */
+}
+
+.logo-block{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.navbar-fixed {
+    top: 0;
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+}
+
+  .background {
+      background: #9e9e9e47;
+  }
+
+  .region-header .block {
+    float: right;
+    line-height: 10px;
+    padding: 0;
+}
+.lang-details {
+    list-style-type: none ;
+    display: inline-flex;
+    margin-bottom: 0 ;
+}
+
+  a.login {
+    color: #000;
+    display: inline-block;
+    // float: left;
+    line-height: 30px;
+    padding: 0 10px 0 25px;
+    margin-left: 0px;
+    width: 100%;
+}
+
+a.english {
+    color: #000;
+    display: inline-block;
+    // float: left;
+    line-height: 30px;
+    padding: 0 10px 0 10px;
+    border-right: 1px solid #C5C5C5;
+    margin-left: 0px;
+    cursor: pointer;
+}
+a.language-link {
+    color: #000;
+    display: inline-block;
+    // float: left;
+    line-height: 30px;
+    padding: 0 10px 0 11px;;
+    margin-left: 0px;
+    border-right: 1px solid #C5C5C5;
+}
+.setting-icon-link {
+    padding: 0 10px 0 10px;
+    color: #333; 
+}
+
+/* new header css */
+.all-logo {
+    list-style: none;
+    display: inline-flex;
+    padding: 0;
+    margin: 8px 0 0 0;
+}
+.user-block {
+    float: right;
+}
+.logo-design {
+    padding: 0 20px 0 15px;;
+}
+.govt-logo{
+    width: 76px;
+    margin-left: -9px;
+}
+img.unicef-logo {
+    width: 100px;
+    margin-top: 27px;
+}
+img.mwcd-logo {
+    width: 72px;
+    margin-top: 7px;
+}
+.heading-title{
+    font-weight: bold;
+    color: #1f497b;
+    font-size: 26px;
+    margin: 15px 0 15px 0;
+    cursor: default;
+}
+.welcome-user {
+    // margin-top: 15px;
+    // cursor: default;
+    color: #2f515a;
+    font-size: 17px;
+}
+.user-name{
+    text-align: right;
+}
+.logged-user {
+    color: $primary-color;
+    font-size: 13px;
+    float: right;
+}
+.welcome-msg {
+    float: right;
+    cursor: default;
+}
+.top_link_icon {
+    margin-top: 5px;
+    text-align: center;
+}
+.round_icon > span {
+    font-size: 14px !important;
+    font-weight: bold;
+    color: $primary-color;
+    left: 7px;
+}
+.icon-text {
+    position: relative;
+    bottom: -3px;
+}
+.login-section {
+    margin-top: 9px;
+}
+.fa-user:before {
+    content: "\f007";
+}
+.round_icon i {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    padding: 11px 0px 0px 0px;
+    border: 2px solid #cecece;
+    font-size: 28px !important;
+    color: #949393;
+    box-shadow: 0px 0px 0px 8px rgba(68,68,68,0.08);
+    transition: box-shadow .5s;
+    transition-timing-function: linear;
+}
+.round_icon i:hover {
+    box-shadow: 0px 0px 0px 8px rgba(176,173,176,1);
+}
+
+.language-block .block {
+    float: left;
+    line-height: 10px;
+    padding: 0;
+}
+
+.language-lists {
+    list-style-type: none;
+    display: inline-flex;
+    margin-bottom: 0;
+    padding-left: 13px;
+}
+
+
+
+
+.gov-logo-section {
+    display: inline-flex;
+}
+
+li.nav-item .dropdown-menu a {
+    font-size: 14px;
+}
+.fa-user {
+    padding-right: 5px;
+}
+
+a.english:hover, a.language-link:hover, a.login:focus, a.english:focus, a.language-link:focus  {
+    background-color: #c5c5c57a;
+}
+a.login:hover{
+    color: $primary-color;
+    font-weight: bold;
+
+}
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 8px solid $primary-color;
+    float: right;
+    margin-top: -9px;
+    margin-left: 20px;
+    float: left;
+}
+.triangle-up-setting {
+    width: 0;
+	height: 0;
+	border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 8px solid $primary-color;
+    float: right;
+    margin-top: -8px;
+    margin-right: 20px;
+    float: right;
+}
+.arrow {
+    overflow: unset !important;
+}
+.top-text-icon {
+    width: 16px;
+}
+.text-size-icon {
+    border-right: 1px solid #C5C5C5;
+}
+.fa-user, .fa-key, .fa-sign-out{
+margin: 0 3px 0 -10px;
+}
+.fa-user:hover, .fa-key:hover, .fa-sign-out:hover{
+    font-weight: bold;
+    color: #1f497b;
+    font-style: inherit;
+    }
+
+a.english, a.language-link, a.login {
+    font-size: 13px;
+}
+
+
+
+.sub-heading {
+    color: #1f497b;
+}
+.padding-left-zero {
+    padding-left: 0;
+}
+.padding-right-zero {
+    padding-right: 0;
+}
+
+/* collasble navbar css */
+
+/* .navbar{
+    background: $primary-color;
+} */
+.head-info-left{
+    margin-left: -68px;
+}
+
+.right-logo{
+    text-align: right;
+}
+.left-container{
+    padding-left: 0px;
+}
+
+.head-info{
+    // float:left;
+    display: inline-block;
+    // padding: 9px;
+    padding: 9px 9px 9px 0px;
+}
+// .heading-name{
+//     margin-left: -70px;
+// }
+.right-logos{
+    margin-right: 30px;
+}
+.navbar{
+    background: $primary-color !important;
+    width: 100%;
+    padding: 0;
+}
+.navbar-nav{
+    padding-left: 0px;
+
+
+}
+.navbar.navbar-light .breadcrumb .nav-item .nav-link, .navbar.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #f0f0f0;
+    
+}
+li.nav-item {
+    padding: 0px 10px 0px 10px;
+    font-size: 15px;
+}
+.dropdown .dropdown-menu .dropdown-item:hover, .dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:focus {
+    background-color: black;
+} 
+.navbar .dropdown-menu a {
+    font-size: 0.9375rem;
+    font-weight: 300;
+    padding: 5px 0 5px 6px;
+    color: #fff !important;
+    border-bottom: 1px solid #fff;
+}
+.dropdown-toggle::after {
+    margin-left: 7px;
+}
+li.nav-item:hover {
+    background: #000;
+    cursor: pointer !important;
+}
+.navbar.navbar-light .navbar-toggler {
+    color: #000;
+    margin: 5px 0px 5px 30px;
+    border-radius: 0;
+}
+.active {
+    background: #131211;
+}
+.dropdown-menu .dropdown-item:last-child {
+    border-bottom: none !important;
+}
+@media(max-width: 1024px){
+    .govt-logo {
+        width: 35px;
+    }
+    // .heading-name{
+    //     // margin-left: -55px;
+    // }
+    .heading-title {
+        font-size: 22px;
+        margin-top: 18px;
+    }
+    img.mwcd-logo {
+        width: 60px;
+    }
+    img.bbbp-logo{
+        width: 60px;
+        padding-top: 4px;
+    }
+    a.english {
+        padding: 0 4px 0 3px;
+    }
+    li.nav-item {
+        padding: 0 0 0 2px;
+        font-size: 14px;
+    }
+    .dropdown-toggle::after {
+        margin-left: 3px;
+    }
+    .setting-menu {
+        margin-left: -207%;
+    }
+    .round_icon i {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        padding: 9px 0px 0px 0px;
+        border: 2px solid #cecece;
+        font-size: 24px !important;
+    }
+    .logo-design {
+        padding: 0 15px 0 14px;
+    }
+    .round_icon > span {
+        left: 8px !important;
+    }
+    .round-icon-logout > span {
+        left: 0 !important;
+    }
+   
+}
+
+@media (max-width: 991px){
+    .setting-menu {
+        margin-left: -234%;
+    }
+    button.navbar-toggler {
+        background-color: white;
+        margin-left: 40px;
+    }
+    .logo-design {
+        padding: 0 12px 0 14px;
+    }
+    .heading-title {
+        font-size: 20px;
+    }
+    .col-md-4.right-container{
+        text-align: end !important;
+    }
+
+
+
+    .dropdown-menu.arrow.show {
+        background: #f0f0f0;
+        background: #f0f0f0;
+        width: 15%;
+        // position: relative;
+        text-align: center;
+        margin: auto;
+    }
+    .triangle-up {
+        border-bottom: 8px solid #f0f0f0;
+        margin-top: -8px;
+    }
+    .navbar .dropdown-menu a {
+        font-weight: 400;
+        color: $primary-color !important;
+        border-bottom: 1px solid $primary-color;
+    }
+    .navbar-nav .dropdown-menu {
+        position: static !important;
+        top: auto;
+        left: auto;
+        float: none;
+        z-index: 99999;
+    }
+    li.nav-item:hover {
+        background: none;
+        cursor: pointer !important;
+    }
+
+    .navbar-nav.nav-item .nav-link:hover {
+        color: #FF9800;
+    }
+
+    
+    marquee {
+        overflow: initial;
+        overflow-y: hidden;
+        white-space: nowrap !important;
+    }
+     a.english, a.language-link, a.login {
+        font-size: 12px;
+     }
+     .navbar.navbar-light .navbar-toggler-icon {
+        cursor: pointer;
+        height: 23px;
+        width: 22px;
+    }
+  .nav-item.dropdown.show .dropdown-menu {
+      transform: translate3d(6px, 1px, 0px);
+    }
+  .navbar-nav {
+    margin-bottom: 15px;
+    text-align: center;
+    padding-left: 0;
+  }
+    .top-menu {
+        padding: 0;
+    }
+    .navbar-toggler {
+        padding: 0 5px 0 5px;
+    }
+}
+@media(max-width: 768px){
+    .lang-details {
+        list-style-type: none;
+        display: -webkit-box;
+        margin-bottom: 0;
+        padding-right: 15px;
+    }
+    .govt-logo {
+        width: 29px;
+    }
+    img.mwcd-logo {
+        width: 44px;
+    }
+    img.bbbp-logo {
+        width: 47px;
+    }
+    .logo-design{
+        padding: 0 7px 0 5px;
+    }
+    // .heading-name{
+    //     // margin-left: -29px;
+    // }
+    .heading-title {
+        font-size: 15px;
+    }
+    .round_icon i {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        padding: 7px 0px 0px 0px;
+        border: 2px solid #cecece;
+        font-size: 20px !important;
+    }
+    .logged-user {
+        color: $primary-color;
+        font-size: 13px;
+    }
+    .welcome-user {
+        margin-top: 9px;
+    }
+    p {
+        font-size: 12px;
+    }
+    a.english {
+        padding: 0 5px 0 2px;
+    }
+    a.english, a.language-link, a.login {
+        font-size: 8px;
+    }
+    .setting-icon-link{
+        padding: 0 3px 0 0px;
+    }
+    .setting-menu{
+        margin-left: -120px;
+    }
+    .round_icon > span {
+        left: 1px !important;
+    }
+    .icon-text{
+        bottom: -1px;
+    }
+    .icons-tab-view {
+      padding-right: 0; 
+    }
+}
+
+/* @media (max-width: 767px){
+    marquee {
+        overflow: initial;
+        overflow-y: hidden;
+        white-space: nowrap !important;
+    }
+   
+} */
+
+
+/* @media(max-width: 767px){
+    .gov-logo-section{
+        padding: 0;
+    }
+    .gov-logo-section .padding-left-zero, .gov-logo-section .padding-right-zero{
+        padding: 0;
+    }
+    .left-logo-bbbp{
+        width: 100%;
+       
+    }
+    .right-logo-bbbp {
+        width: 100%;
+        margin-top: 15px;
+    }
+    .navbar-toggler i.fa.fa-bars:before{
+        color: black;
+    }
+    .right-logo-bbbp1 {
+        width: 100%;
+        margin-top: 21px;
+    }
+    .head-info-left{
+        margin-left: 0px;
+    }
+    .infocus-each-block-dist {
+        max-width: 100%;
+    }
+} */
+
+@media(max-width: 767px){
+    .right-container {
+        text-align: end !important;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        position: absolute;
+    }
+}
+
+
+
+ @media(max-width: 608px){
+    .left-container{
+        display: inline-flex;
+        width: 44%;
+    }
+    .lang-width-tab-view { 
+        width: 25%;
+        padding-left: 0;
+    }
+    .header-tab-view { padding: 0; }
+    .top-menu { width: 75% }
+    .head-info{
+        width: 79%;
+        left: 30px;
+    }
+    .govt-logo{
+        width: 28px;
+    }
+    // .heading-name{
+    //     // margin-left: -140px;
+    // }
+    .heading-title{
+        font-size: 21px;
+        width: 130%;
+    }
+    .right-logo { width: 56%; }
+    p {
+        font-size: 11px;
+    }
+    .mwcd-logo{
+        width: 22px;
+    }
+    .bbbp-logo{
+        width: 20px;
+    }
+    .triangle-up {
+        border-bottom: 8px solid #fefcf1;
+    }
+    .logged-user {
+        color: $primary-color;
+        font-size: 13px;
+        white-space: nowrap;
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }  
+    .icons-tab-view {
+        width: 50%;
+        margin: -73px 0px 0 400px;
+    }
+    .round_icon i {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        padding: 7px 0px 0px 0px;
+        border: 2px solid #cecece;
+        font-size: 15px !important;
+    }
+    .right-logos {
+        margin-right: 10px;
+    }
+}
+/* @media(max-width: 575px){
+    .gov-logo-section > div{
+        width: 100%;
+    }
+    .gov-logo-section .padding-right-zero{
+        padding-right: 10px;
+    }
+    .gov-logo-section .padding-left-zero{
+        padding-left: 10px;
+        text-align: left;
+    }
+    .right-logo-bbbp,.right-logo-bbbp1{
+        max-width: 60px;
+    }
+    .gov-logo-section{
+        padding-bottom: 10px;
+    }
+} */
+@media(max-width: 560px){
+    .left-container{
+        width: 47%;
+    }
+    .icons-tab-view {
+        width: 50%;
+        margin: -73px 0px 0 357px;
+    }
+    .right-logo {
+        width: 53%;
+    }
+    
+}
+
+@media(max-width: 480px){
+    .govt-logo{
+        width: 30px;
+        margin-left: -14px;
+    }
+    .lang-details {
+        padding-left: 0 !important;
+        margin-left: -20px !important;
+    }
+    a.english {
+        padding: 0 2px 0 5px !important;
+    }
+    // .head-info{
+    //     padding-left: 15px;
+    // }
+    .heading-title{
+        font-size: 21px;
+        width: 163%;
+    }
+    p{
+        font-size: 9px;
+    }
+    .mwcd-logo{
+        width: 43px !important;
+    }
+    .bbbp-logo{
+        width: 38px;
+        margin-right: -9px;
+    }
+    .info-mobile-view {
+        margin-left: 15px;
+    }
+    .icons-tab-view {
+        width: 50%;
+        margin: -71px 0px 0 314px;
+    }
+    .welcome-msg {
+        font-size: 13px;
+    }
+    .logged-user {
+        font-size: 9px;
+        width: 65px;
+    }
+    .head-info {
+        padding: 7px 0 5px;
+    }
+    // .heading-name {
+    //     // margin-left: -126px;
+    // }
+}
+@media(max-width: 360px){
+
+    .heading-title{
+        font-size: 21px;
+        width: 213%;
+    }
+.triangle-up{
+    margin-left: 50px;
+}
+
+.right-container[_ngcontent-c2] {
+    text-align: end !important;
+    margin-top: -39px;
+    margin-bottom: 20px;
+    position: relative;
+    top: 27px;
+}
+}

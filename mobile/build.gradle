@@ -1,0 +1,40 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.google.gms:google-services:3.2.0'
+        classpath 'org.ow2.asm:asm:6.0' // https://github.com/jacoco/jacoco/issues/639#issuecomment-355424756
+        classpath 'org.jacoco:org.jacoco.core:0.8.0'
+        classpath 'io.fabric.tools:gradle:1.25.2'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url = 'https://oss.sonatype.org/content/groups/public' }
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
+configurations.all {
+    transitive = true
+}
+
+ext {
+    // Play Services is a big download so it should only be upgraded if necessary and after
+    // community discussion and a warning period.
+    playServicesVersion = '10.0.1'
+
+    supportLibraryVersion = '27.1.1'
+    leakyCanaryVersion = '1.5.4'
+    daggerVersion = '2.15'
+    rxLifecycleVersion = '2.2.1'
+}

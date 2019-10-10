@@ -1,0 +1,63 @@
+.content-sec {
+    padding-top: 15px;
+  }
+  .waves-light, .waves-light:hover, .waves-light:focus{
+      background-color: #1f497b !important;
+    }
+    .user-label{
+      max-width: 18.666667% !important;
+    }
+    // .data-error, .modal .err-btn {
+    //   background-color: #af1926 !important;
+    // }
+    .left-list {
+      height: 105%;
+      width: 30%;
+      background-color: #80a7e0;
+      padding-top: 80px;
+      position: absolute;
+  }
+  .user-heading {
+    font-size: 1.75em;
+    font-weight: 500;
+    text-align: left;
+    // border-bottom: 1px solid #1f4a7c;
+    // color: #1f4a7c;
+    margin-bottom: 20px;
+    padding-bottom: 7px;
+  }
+  .btn.user-submit {
+    background-color: #234a7c;
+    border-radius: 0;
+    width: 120px;
+    color: #FFF;
+  }
+  #oldPassNotMatch .modal-header, #successMatch .modal-header{
+    height: 39px;
+    padding: 3px 14px;
+  }
+  p.heading.lead {
+    font-weight: bold;
+    color: #234a7c;
+  }
+  .user-man-btn{
+    margin-top: 10px;
+  }
+  .modal-btn {
+    border-radius: 0;
+    background-color: #234a7c;
+  }
+  input.nospinner[type=number]::-webkit-inner-spin-button, 
+  input.nospinner[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+  /** media query starts here **/
+  @media(max-width: 767px){
+    .left-list{
+      width: 50%;
+      z-index: 100;
+      padding-top: 40px;
+      box-shadow: 1px 1px 1px 1px #CCC;
+    }
+  }

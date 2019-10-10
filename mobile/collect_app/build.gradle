@@ -1,0 +1,309 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply from: '../config/quality.gradle'
+apply from: '../config/jacoco.gradle'
+
+import com.android.ddmlib.DdmPreferences
+
+DdmPreferences.setTimeOut(60000)
+
+ant.condition(property: 'os', value: 'windows') {
+    os(family: 'windows')
+}
+ant.condition(property: 'os', value: 'unix') {
+    os(family: 'unix')
+}
+
+// Build numbers were manually set until 1067
+def LEGACY_BUILD_NUMBER_OFFSET = 1067
+
+// Based on http://stackoverflow.com/questions/17097263#24121734
+def getMasterCommitCount = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            switch (ant.properties.os) {
+                case 'windows':
+                    commandLine 'cmd', '/c', 'git', 'rev-list', '--first-parent', '--count', 'master'
+                    break
+                case 'unix':
+                    commandLine 'git', 'rev-list', '--first-parent', '--count', 'master'
+                    break
+            }
+            standardOutput = stdout
+        }
+        return Integer.parseInt(stdout.toString().trim())
+    } catch (ignored) {
+        return -1
+    }
+}
+
+def getVersionName = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            switch (ant.properties.os) {
+                case 'windows':
+                    commandLine 'cmd', '/c', 'git', 'describe', '--tags', '--dirty', '--always'
+                    break
+                case 'unix':
+                    commandLine 'git', 'describe', '--tags', '--dirty', '--always'
+                    break
+            }
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    } catch (ignored) {
+        return null
+    }
+}
+
+def secretsFile = file('secrets.properties')
+def secrets = new Properties()
+if (secretsFile.exists()) {
+    secrets.load(new FileInputStream(secretsFile))
+}
+
+android {
+    compileSdkVersion(27)
+
+    defaultConfig {
+        applicationId('org.sdrc.dgacg.collect.android')
+        minSdkVersion(16)
+        targetSdkVersion(26)
+        versionCode 8
+        versionName "2.1.2"
+        testInstrumentationRunner('android.support.test.runner.AndroidJUnitRunner')
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        archivesBaseName = 'collect'
+    }
+
+    signingConfigs {
+        release {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                storeFile file(secrets.getProperty('RELEASE_STORE_FILE'))
+                storePassword secrets.getProperty('RELEASE_STORE_PASSWORD')
+                keyAlias secrets.getProperty('RELEASE_KEY_ALIAS')
+                keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        // Release build for all forks
+        release {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "FIREBASE_CRASHLYTICS_ENABLED", "false")
+        }
+        // Release build for the original ODK Collect app
+        odkCollectRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "FIREBASE_CRASHLYTICS_ENABLED", "true")
+        }
+        debug {
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "FIREBASE_CRASHLYTICS_ENABLED", "false")
+        }
+    }
+
+    // https://stackoverflow.com/a/27119543/152938
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = new File(outputFileName.replace(".apk", "-${defaultConfig.versionName}.apk"))
+        }
+    }
+    testVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = new File(outputFileName.replace(".apk", "-${defaultConfig.versionName}.apk"))
+        }
+    }
+
+    packagingOptions {
+        // Pick first occurrence of any files that cause conflicts, as defined
+        // in common.gradle
+        pickFirst 'META-INF/DEPENDENCIES'
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/LICENSE.txt'
+        pickFirst 'META-INF/NOTICE'
+        pickFirst 'META-INF/NOTICE.txt'
+        pickFirst 'META-INF/services/com.fasterxml.jackson.core.JsonFactory'
+        pickFirst 'META-INF/services/com.fasterxml.jackson.core.ObjectCodec'
+        pickFirst 'META-INF/services/javax.ws.rs.ext.MessageBodyReader'
+        pickFirst 'META-INF/services/javax.ws.rs.ext.MessageBodyWriter'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize '2048M'
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+            all {
+                // https://discuss.circleci.com/t/11207/24
+                // it seems any number works, but 1024 - 2048 seem reasonable 
+                maxHeapSize = "2048M"
+            }
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        cacheDynamicVersionsFor(0, 'seconds')
+        cacheChangingModulesFor(0, 'seconds')
+
+        force('com.google.code.findbugs:jsr305:1.3.9')
+    }
+    transitive = true
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << '-Xlint:all'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: '*.jar')
+    implementation "com.android.support:support-v13:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:customtabs:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:design:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:design:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:cardview-v7:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:exifinterface:${rootProject.supportLibraryVersion}"
+    implementation "com.android.support:multidex:1.0.3"
+
+    implementation "com.google.android.gms:play-services-analytics:${rootProject.playServicesVersion}"
+    implementation "com.google.android.gms:play-services-auth:${rootProject.playServicesVersion}"
+    implementation "com.google.android.gms:play-services-maps:${rootProject.playServicesVersion}"
+    implementation "com.google.android.gms:play-services-location:${rootProject.playServicesVersion}"
+
+    implementation "com.google.firebase:firebase-core:${rootProject.playServicesVersion}"
+    implementation "com.crashlytics.sdk.android:crashlytics:2.9.2"
+
+    implementation("com.google.code.gson:gson:2.6.2") {
+        exclude group: 'org.apache.httpcomponents'
+    }
+
+    implementation("com.google.http-client:google-http-client:1.22.0") {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation("com.google.oauth-client:google-oauth-client:1.22.0") {
+        exclude group: 'org.apache.httpcomponents'
+    }
+
+    implementation "com.evernote:android-job:1.2.5"
+    implementation "com.rarepebble:colorpicker:2.3.1"
+    implementation "commons-io:commons-io:2.6"
+    implementation "net.sf.kxml:kxml2:2.3.0"
+    implementation "net.sf.opencsv:opencsv:2.3"
+    implementation("org.opendatakit:opendatakit-javarosa:2.10.0") {
+        exclude group: 'joda-time'
+        exclude group: 'org.slf4j'
+    }
+    implementation "com.karumi:dexter:4.2.0"
+    implementation "org.osmdroid:osmdroid-android:5.6.4"
+    implementation "org.slf4j:slf4j-android:1.6.1-RC1"
+    implementation "pub.devrel:easypermissions:0.2.1"
+    implementation("com.google.api-client:google-api-client-android:1.22.0") {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation("com.google.apis:google-api-services-drive:v3-rev64-1.22.0") {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation("com.google.apis:google-api-services-sheets:v4-rev463-1.22.0") {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation "com.jakewharton.timber:timber:4.7.0"
+    implementation "com.google.zxing:core:3.3.0"
+    implementation "com.journeyapps:zxing-android-embedded:3.5.0"
+    implementation "net.danlew:android.joda:2.9.9"
+
+    // Real LeakCanary for debug builds only: notifications, analysis, etc
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+    // No-Op version of LeakCanary for release builds: no notifications, no analysis, nothing
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
+    androidTestImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
+    odkCollectReleaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
+
+    // Android Architecture Components:
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+
+    // Dagger:
+    implementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
+
+    // RxJava 2:
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+    implementation "io.reactivex.rxjava2:rxjava:2.1.10"
+
+    // Better "Subjects" for Rx:
+    implementation "com.jakewharton.rxrelay2:rxrelay:2.0.0"
+
+    // Android bindings for Rx:
+    implementation "com.jakewharton.rxbinding2:rxbinding:2.0.0"
+
+    // RxLifecycle (binds subscription cleanup to component lifecycle):
+    implementation "com.trello.rxlifecycle2:rxlifecycle:${rootProject.rxLifecycleVersion}"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android:${rootProject.rxLifecycleVersion}"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:${rootProject.rxLifecycleVersion}"
+
+    // Makes binding to Views easy:
+    implementation "com.jakewharton:butterknife:8.8.1"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
+
+    // Used to generate documentation screenshots.
+    androidTestImplementation "tools.fastlane:screengrab:1.1.0"
+
+    // Testing-only dependencies
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.8.47"
+    testImplementation "org.robolectric:robolectric:3.5.1"
+    testImplementation "org.robolectric:shadows-multidex:3.5.1"
+
+    // power mock (for mocking final methods which is not handled by mockito)
+    testImplementation "org.powermock:powermock-module-junit4:1.6.4"
+    testImplementation "org.powermock:powermock-api-mockito2:1.7.3"
+
+    androidTestImplementation "org.mockito:mockito-android:2.11.0"
+    androidTestImplementation("com.android.support.test:runner:1.0.1") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+
+    androidTestImplementation("com.android.support.test.espresso:espresso-intents:3.0.1") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:3.9.0"
+}
+
+// Must be at bottom to prevent dependency collisions
+// https://developers.google.com/android/guides/google-services-plugin
+apply plugin: 'com.google.gms.google-services'
+
+
+

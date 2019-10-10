@@ -1,0 +1,147 @@
+<!-- @swarna -->
+
+
+<div class="container-fluid main-content">
+  <div class="row">
+    <div class="col-md-10 padding-zero">
+      <h2 class="user-heading">LaQshya</h2>
+    </div>
+    <div class="col-md-2 padding-zero">
+      <!-- download excel section -->
+      <div class="text-right">
+        <button class="btn btn-excel btn-submit" (click)="tableToExcel()"><span><i class="fa fa-file-excel-o"
+              aria-hidden="true"></i></span>&nbsp;Download Excel</button>
+      </div>
+    </div>
+  </div>
+  <div class="row row-content">
+
+    <!-- table for data entry -->
+    <div class="tableMargin table-responsive fix-level-table table-wrap" id="table-fixed-container"
+      tableuniqueclass="'fix-level-table'" tabledata="tableDetails">
+      <table id="main-table" *ngIf="tableData" class="table table-bordered main-table" cellspacing="0" width="100%">
+        <thead class="thead-width">
+          <tr>
+            <th><span>Sl. No.</span></th>
+            <th *ngIf="showDistrictColumn"><span>District</span></th>
+            <th><span>Name of Facility</span></th>
+            <th *ngFor="let head of tableData.headers">
+              <span>{{head}}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody [ngClass]="{'main-table-body-height':tableBodyData.length>3}">
+          <tr *ngFor="let reportdetails of tableBodyData;let num=index">
+            <td class="first-table-td">{{num+1}}</td>
+            <td *ngIf="showDistrictColumn" class="first-table-td" style="font-weight: bold">
+              {{reportdetails.districtName}}</td>
+            <td class="first-table-td" style="font-weight: bold">{{reportdetails.nameOfFacility}}</td>
+            <td *ngFor="let tdData of tableBodyData[num].valueArray;let t=index" class="first-table-td padding-zero">
+              <table id="second-table" class="table table-striped number-Row-Column">
+                <tr *ngIf="tdData.peer == 'Peer Assessment'">
+                  <td class="margin-bottom-row">{{tdData.peer}}</td>
+                </tr>
+                <tr *ngIf="tdData.baseLine == 'Baseline Assessment Labor Room'">
+                  <td class="margin-bottom-row">{{tdData.baseLine}}</td>
+                </tr>
+                <tr [hidden]="tdData.peer == 'Yes' || tdData.peer == 'No' || tdData.peer == '-' ||
+                 tdData.baseLine == 'Yes' || tdData.baseLine == 'No' || tdData.baseLine == '-'"
+                  *ngIf="tdData.peer != 'Peer Assessment'">
+                  <td class="margin-bottom-row">
+                    <mat-form-field class="example-full-width">
+                      <input [disabled]="showDistrictColumn" type="text" matInput pattern="\d*" id="peer-{{t}}"
+                        name="peer-{{t}}" [(ngModel)]="tdData.peer" (blur)="emitPeer(tdData)">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr [hidden]="tdData.peer == 'Yes' || tdData.peer == 'No' || tdData.peer == '-' ||
+                 tdData.baseLine == 'Yes' || tdData.baseLine == 'No' || tdData.baseLine == '-'"
+                  *ngIf="tdData.baseLine != 'Baseline Assessment Labor Room'">
+                  <td class="margin-bottom-row">
+                    <mat-form-field class="example-full-width">
+                      <input [disabled]="showDistrictColumn" type="text" matInput pattern="\d*" id="base-{{t}}"
+                        name="base-{{t}}" [(ngModel)]="tdData.baseLine" (blur)="emitBase(tdData)">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr *ngIf="tdData.peer == 'Yes' || tdData.peer == 'No' || tdData.peer == '-'">
+                  <td class="margin-bottom-row">
+                    <mat-form-field [hidden]="showDistrictColumn">
+                      <mat-label></mat-label>
+                      <mat-select matNativeControl [(ngModel)]="tdData.peer" [disabled]="showDistrictColumn">
+                        <mat-option value="-">Select</mat-option>
+                        <mat-option value="Yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <span [hidden]="!showDistrictColumn" *ngIf="tdData.peer == '-'">--</span>
+                    <span [hidden]="!showDistrictColumn" *ngIf="tdData.peer == 'Yes'">Yes</span>
+                    <span [hidden]="!showDistrictColumn" *ngIf="tdData.peer == 'No'">No</span>
+                  </td>
+                </tr>
+                <tr *ngIf="tdData.baseLine == 'Yes' || tdData.baseLine == 'No' || tdData.baseLine == '-'">
+                  <td class="margin-bottom-row">
+                    <mat-form-field [hidden]="showDistrictColumn">
+                      <mat-label></mat-label>
+                      <mat-select matNativeControl [(ngModel)]="tdData.baseLine">
+                        <mat-option  value="-">Select</mat-option>
+                        <mat-option value="Yes">Yes</mat-option>
+                        <mat-option value="No">No</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <span [hidden]="!showDistrictColumn"  *ngIf="tdData.baseLine == '-'">--</span>
+                    <span [hidden]="!showDistrictColumn" *ngIf="tdData.baseLine == 'Yes'">Yes</span>
+                    <span [hidden]="!showDistrictColumn" *ngIf="tdData.baseLine == 'No'">No</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row row-content">
+    <div class="col-md-12 text-center submit-btn" *ngIf="!showDistrictColumn">
+      <button class="btn btn-excel btn-submit" (click)="submit()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<div id="successModal" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-box">
+          <i class="material-icons">&#xE876;</i>
+        </div>
+        <h4 class="modal-title col-md-12">Success!</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Data has been saved successfully.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-block" (click)="reloadSubmittedData()" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="errorModal" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="icon-box" style="background: #b73737">
+            <i class="material-icons">error</i>
+          </div>
+          <h4 class="modal-title col-md-12">Error!</h4>
+        </div>
+        <div class="modal-body">
+          <p class="text-center">{{errorMsg}}</p>
+        </div>
+        <div class="modal-footer">
+          <button style="background: #b73737" class="btn btn-success btn-block" (click)="reloadSubmittedData()" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>

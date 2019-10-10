@@ -1,0 +1,26 @@
+.btnHover {
+    .download-container:hover & {
+      transform: translateX(-100px);
+    }
+  }
+  
+  .pdfDownloadBtn {
+    @extend .btnHover;
+    transition: all .50s linear;
+  } 
+  .pdfDownloadBtn{
+    border-radius: 0;
+    background: #2b4953;
+  }
+.no-data
+{
+
+    background-color: #949292;
+
+}
+  
+#pointer {
+  cursor: pointer;
+}
+ 
+  

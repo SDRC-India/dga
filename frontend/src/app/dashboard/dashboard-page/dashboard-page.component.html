@@ -1,0 +1,278 @@
+
+<div id="wrapper">
+	<div id="containerId" class="content">
+		<div class="container-fluid">
+			<div class="row mar-bot-10" style="margin: 30px auto;">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-2 page-title-head">
+							<h3 class="page_header">Dashboard</h3>
+						</div>
+						<div id="pdfDownloadButton" style="position: fixed; right: -107px; z-index: 1000;"  class="download-container" [hidden]="roleId == 5 || !tableData.length">
+							<button type="button" id="pdfDownloadBtn" class="btn pdfDownloadBtn" title="Download PDF" (click)="exportData('exportToPdf')">
+								<i class="fa fa-lg fa-file-pdf-o"></i> &nbsp; Download PDF
+							</button>
+						</div>
+
+						<div class="col-md-2 offset-md-3 col-xs-5 facilitySection">
+							<h5 class="textsiz">
+								<div class="square-color" style="background-color: #df6864;"></div>
+								Facilities Planned: {{noOfFacilitiesPlanned}}
+							</h5>
+							<h5 class="textsiz">
+								<div class="square-color" style="background-color: #228a76"></div>
+								Facilities Covered: {{noOfFacilities}}
+							</h5>
+						</div>
+						<div class="col-md-5 col-xs-7 text-right facility-progress-bar">
+							<div id="bar-2" class="bar-main-container emerald">
+								<div class="wrap">
+									<div class="bar-percentage" data-percentage="75">0%</div>
+									<div class="bar-container">
+										<div class="bar"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="col-md-12">
+							<div id="excelDownloadButton" style="position: fixed; right: -114px; z-index: 1000;" class="download-container" [hidden]="roleId == 5 || !tableData.length">
+								<button type="button"  mdbBtn  mdbWavesEffect id="excelDownloadBtn" 
+								class="btn pdfDownloadBtn" title="Download Excel" (click)="exportData('exportToExcel')">
+									<i class="fa fa-lg fa-file-excel-o"></i> &nbsp; Download Excel
+								</button>
+							</div>
+							<div class="row">
+								<div class="col-md-12 selection-bar">
+									<div class="row">
+
+										<div class="col-md-2">
+											<div class="select-container dist-list text-center">
+												<div id="selectedStateDrop" class="input-group btn-group" dropdown>
+													<input type="text" [ngClass]="{'noBorder': areaLevelId != 1 }" placeholder="State *" id="state" class="form-control not-visible-input"
+													 name="State" readonly="" [(ngModel)]="selectedState.areaName" />
+													<div class="input-group-btn" style="position: relative;" >
+														<button data-toggle="dropdown" dropdownToggle [disabled]="allStates.length<=1" class="btn btn-color px-3 "
+														 type="button">
+															<i class="fa fa-list"></i>
+														</button>
+														<ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectedStateDrop')}">
+															<li class="dropdown-item" *ngFor="let state of allStates" (click)="resetPushpinDataCallDone(); selectState(state)">{{state.areaName}}</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+
+										<div class="col-md-2">
+											<div class="select-container dist-list text-center">
+												<div id = "selectPrograme" class="input-group btn-group" dropdown>
+													<input type="text" [ngClass]="{'noBorder': areaLevelId != 1 }" placeholder="Program *" id="program" class="form-control not-visible-input"
+													 name="State" readonly="" [(ngModel)]="selectedProgram.programName" />
+													<div class="input-group-btn" style="position: relative;">
+														<button data-toggle="dropdown" dropdownToggle [disabled]="programList.length<=1" class="btn btn-color px-3 "
+														 type="button">
+															<i class="fa fa-list"></i>
+														</button>
+														<ul class="dropdown-menu" [ngStyle]="{'width.px': getWidth('selectPrograme')}" role="menu">
+															<li class="dropdown-item" [hidden]="program.programId == 8" *ngFor="let program of programList" (click)="resetPushpinDataCallDone(); selectProgram(program)">{{program.programName}}</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-2">
+
+											<div class="select-container text-center">
+												<div id="selecttimeperiod" class="input-group btn-group" dropdown>
+													<input type="text" placeholder="Time Period *" id="timeperiod" class="form-control not-visible-input" name="indicator"
+													 readonly="" [(ngModel)]="!selectedTimePeriod?'':selectedTimePeriod.timePeriod">
+													<div class="input-group-btn" style="position: relative;">
+														<button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3  " type="button"
+														 [disabled]="allTimePeriods.length<=1">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<ul class="dropdown-menu" [ngStyle]="{'width.px': getWidth('selecttimeperiod')}" role="menu">
+															<li class="dropdown-item" *ngFor="let timeperiod of allTimePeriods" (click)="resetPushpinDataCallDone(); selectTimePeriod(timeperiod)">{{timeperiod.timePeriod}}</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="select-container text-center">
+												<div id="selectIndicator" class="input-group btn-group" dropdown>
+													<input type="text" placeholder="Indicator *" id="indicator" class="form-control not-visible-input" name="indicator"
+													 readonly="" [(ngModel)]="selectedSector.label" />
+													<div class="input-group-btn" style="position: relative;" >
+														<button data-toggle="dropdown" dropdownToggle class="btn btn-color px-3  " type="button">
+															<i class="fa fa-list"></i>
+														</button>
+														<ul class="dropdown-menu" [ngStyle]="{'width.px': getWidth('selectIndicator')}" role="menu">
+															<li class="dropdown-item" *ngFor="let sector of sectors" (click)="resetPushpinDataCallDone(); selectSector(sector)">{{sector.label}}</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="select-container dist-list text-center">
+												<div id="selectDistrict" class="input-group btn-group" dropdown>
+													<input type="text" [ngClass]="{'noBorder': areaLevelId == 4 }" placeholder="Districts *" id="Dist" class="form-control not-visible-input"
+													 name="Dist" readonly="" [(ngModel)]="selectedDistrict.areaName">
+													<div class="input-group-btn" style="position: relative;">
+														<button data-toggle="dropdown" dropdownToggle [disabled]="allDistricts.length<=1" class="btn btn-color px-3  "
+														 type="button">
+														 <i class="fa fa-list"></i>
+														</button>
+														<ul class="dropdown-menu dropdown-menu-left" [ngStyle]="{'width.px': getWidth('selectDistrict')}" role="menu">
+
+															<li class="dropdown-item" *ngFor="let district of allDistricts ;index as i " [ngClass]="{'allDistDropdown': i == 0}"
+															 (click)="resetPushpinDataCallDone(); selectDistrict(district)">{{district.areaName}}</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="">
+							<div class="" style="margin: 10px auto 25px;">
+								<div id="mapContainerId">
+									<div class="col-md-4 area_level" data-html2canvas-ignore="true" *ngIf="selectedParentSector.form_meta_id!=9 && selectedParentSector.form_meta_id!=10">
+										<ul class="list-unstyled list-inline arealist">
+											<li (click)="resetPushpinDataCallDone(); selectParentSector(parentSector)" *ngFor="let parentSector of parentSectors"><a
+												 [ngClass]="{active:selectedParentSector.formId == parentSector.formId}" > <i class="{{parentSector.markerClass}}"></i>
+													{{parentSector.label}}
+												</a></li>
+										</ul>
+									</div>
+									<div style="position: relative;">
+										<section class="legends" style=" min-width: 210px; max-width: 400px;">
+
+											<ul>
+												<li class="legend_list" style="margin-bottom: 28px;">
+													<h4>{{selectedSector.label}}</h4>
+												</li>
+												<li class="legend_list ng-scope"><span class="legend_key ">below 60</span> <span class="firstslices legnedblock">
+													</span> (<span style="color: red;">{{redMarkers}}</span>)</li>
+												<!-- end ngRepeat: legend in legends -->
+												<li class="legend_list "><span class="legend_key ">60
+														to 79</span> <span class="secondslices legnedblock"> </span> (<span style="color: orange;">{{orangeMarkers}}</span>)</li>
+												<!-- end ngRepeat: legend in legends -->
+												<li class="legend_list "><span class="legend_key ng-binding">80 and above</span> <span class="fourthslices legnedblock">
+													</span> (<span style="color: green;">{{greenMarkers}}</span>)</li>
+											</ul>
+										</section>
+
+										<agm-map [latitude]="map.center.latitude" [longitude]="map.center.longitude" [zoom]="map.zoom"
+										 [zoomControl]="true" [fullscreenControl]="true">
+											<agm-marker #gm *ngFor="let m of map.markers" (mouseOver)="onMouseOver(infoWindow,gm)" (mouseOut)="infoWindow.close()"
+											 [iconUrl]="m.icon" (markerClick)="pushpinClicked(m)" [latitude]="m.latitude" [longitude]="m.longitude">
+
+												<agm-info-window [disableAutoPan]="false" #infoWindow>
+													<p style="font-size: 15px; color: #313e4d; display: inline;">
+														<strong>{{m.title}}</strong><br> <strong>Score:{{m.dataValue}}%</strong>
+												</agm-info-window>
+
+											</agm-marker>
+
+											<agm-polygon *ngFor="let p of polygons" [paths]="p.path" [strokeColor]="p.stroke.color" [strokeWeight]="p.stroke.wieght"
+											 [visible]="p.visible" [geodesic]="p.geodesic" [fillColor]="p.fill.color" [fillOpacity]="p.fill.opacity">
+											</agm-polygon>
+										</agm-map>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12" style="margin-bottom: 25px;">
+								<div class="">
+									<div class="col-md-12 selection-bar" *ngIf="selectedParentSector">
+										<h5>
+											{{selectedParentSector.label}} &nbsp;&nbsp; <i class="fa fa-angle-double-right color-green" aria-hidden="true"></i>
+											&nbsp;&nbsp;
+											{{selectedDistrict.areaName}} &nbsp;&nbsp; <i class="fa fa-angle-double-right color-green" aria-hidden="true"></i>
+											&nbsp;&nbsp; {{selectedPushpin}}
+										</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="charts">
+						
+								<div class="col-md-6">
+									
+									<div id="home">
+											<sdrc-radar-chart *ngIf="spiderdata" [radardata]="spiderdata"></sdrc-radar-chart>
+
+										</div>
+								</div>
+								<div class="col-md-6 ">
+									<div class=" table-responsive" style="width: 100%">
+										<table  mdbTable striped="true" bordered="true" items="tableData" show-filter="true" cellpadding="0" cellspacing="0" class="assign-height-similar-spider dataTable table-no-total table table-bordered"
+										 id="dataTable">
+											<thead>
+												<tr>
+													<th *ngFor="let column of columns" style="position: relative;">{{column}}
+
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr mdbTableCol *ngFor="let rowData of tableData">
+													<td *ngFor="let column of columns" [ngClass]="column=='Section/Sub-Section'?'':rowData[column]<60?'firstslices':rowData[column]<80?'secondslices':!rowData[column]?'no-data':'fourthslices'">{{rowData[column]}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- <div><a id="pointer" *ngIf="selectedDistrict.areaLevelId && selectedParentSector.form_meta_id==2" (click)="fipReport()">FIP Report </a></div>  -->
+							</div>
+						</div>
+					</div>
+					<div class="modal fade" id="noDataModall" role="dialog" style="margin-top: 12%;">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content modal-info">
+								<div class="modal-header" style="background-color: #2f515b; color: #fff;">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<!-- <h4 class="modal-title" style="text-align: center;">Info</h4> -->
+								</div>
+								<div class="modal-body">
+									<p style="text-align: center; font-size: 20px; margin-bottom: -10px;">NO
+										DATA AVAILABLE</p>
+								</div>
+								<div class="modal-footer" style="text-align: center;">
+									<button type="button" class="btn btn-default btn-view text-center" data-dismiss="modal">Ok</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- <div class="modal fade" id="areaModal" role="dialog"
+							>
+							<jsp:include page="fragments/header.jsp"></jsp:include>
+							<div class="modal-dialog">
+							
+									<thematic-map  style="display:block;margin-top: -15px; z-index:1000px;margin:auto"></thematic-map>
+									
+									</div>
+									<jsp:include page="fragments/footer.jsp"></jsp:include>
+									</div> -->
+
+					<!-- //end  -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

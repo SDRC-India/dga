@@ -1,0 +1,229 @@
+<div class="container-fluid ">
+  <div class="selection col-12">
+
+    <div class="row">
+    <div class="select-container text-center col-md-3">
+      <div class="text-left" id="selectState">State *</div>
+      <div class="input-group btn-group" dropdown>
+        <input type="text" placeholder="State *" id="State" class="form-control not-visible-input" readonly=""
+          [(ngModel)]="selectedState.areaName">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectState')}">
+            <li class="dropdown-item" *ngFor="let state of allStates" (click)="selectState(state)">{{state.areaName}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="select-container text-center col-md-3">
+      <div class="text-left" id="selectTimeperiods">Time Period *</div>
+      <div class="input-group btn-group" dropdown>
+        <input type="text" placeholder="Time Period *" id="timePeriod" class="form-control not-visible-input" readonly=""
+          [(ngModel)]="selectedTimepriod.timePeriod">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectTimeperiods')}">
+            <li class="dropdown-item" *ngFor="let timeperiod of allTimeperiods" (click)="selectTimeperiod(timeperiod)">{{timeperiod.timePeriod}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="select-container text-center col-md-3">
+      <div class="text-left" id="selectFacilitys">Facility Type *</div>
+      <div class="input-group btn-group" dropdown>
+        <input type="text" placeholder="Facility Type *" id="facilityType" class="form-control not-visible-input" name="facilityType"
+          readonly="" [(ngModel)]="selectedFacility.label">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('selectFacilitys')}">
+            <li class="dropdown-item" *ngFor="let facility of allFacilities" (click)="selectFacility(facility)">{{facility.label}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="select-container text-center col-md-3">
+      <div class="text-left" id="seletStateDist">State/District *</div>
+      <div class="input-group btn-group" dropdown>
+        <input type="text" placeholder="State/District *" id="district" class="form-control not-visible-input" readonly=""
+          [(ngModel)]="selectedDistrict.areaName">
+        <div class="input-group-btn" style="position: relative;">
+          <button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3" type="button">
+            <i class="fa fa-list"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" [ngStyle]="{'width.px': getWidth('seletStateDist')}">
+            <li class="dropdown-item" *ngFor="let district of allDistricts" (click)="selectDistrict(district)">{{district.areaName}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+
+      <div class="select-container text-center col-md-5">
+        <div class="text-left ">Row Indicator *</div>
+        <div class="input-group btn-group" dropdown>
+          <input type="text" placeholder="Type to search row indicator"  class="form-control not-visible-input"
+            name="searchFacility" [(ngModel)]="rowIndicator"
+             [disabled]="!selectedFacility.label" title="{{rowIndicator}}" [matAutocomplete]="row">
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3" type="button" ng-click="searchColoumnIndicator()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+
+        <mat-autocomplete #row="matAutocomplete">
+          <mat-option *ngFor="let option of (allIndicators|crossTabIndicatorSearch:rowIndicator:colIndicator)" [value]="option.label">{{option.label}}</mat-option>
+        </mat-autocomplete>
+
+      </div>
+
+      <div class="select-container text-center col-md-5 ">
+        <div class="text-left">Column Indicator *</div>
+        <div class="input-group  btn-group" dropdown>
+          <input type="text" placeholder="Type to search column indicator"  class="form-control not-visible-input"
+            name="searchFacility" [(ngModel)]="colIndicator"
+             [disabled]="!selectedFacility.label" [matAutocomplete]="col" title="{{colIndicator}}">
+          <div class="input-group-btn" style="position: relative;">
+            <button data-toggle="dropdown" dropdownToggle class="btn btn-color  px-3" type="button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <mat-autocomplete #col="matAutocomplete">
+          <mat-option *ngFor="let option of (allIndicators|crossTabIndicatorSearch:colIndicator:rowIndicator)" [value]="option.label">{{option.label}}</mat-option>
+        </mat-autocomplete>
+      </div>
+
+      <div class="col-md-2 text-right " style="margin-top: 18px;">
+        <button type="submit" class="submit-selection submit-crossTab" (click)="getTableData()">Submit</button>
+      </div>
+
+    </div>
+
+  </div>
+  <div id="main-content" *ngIf="tableValue['data']">
+
+      <button class="submit-selection" ng-if="tableData.length"
+      style="float: right; background-color: #37393d;"
+      (click)="exportTableData('dataTable')">
+      <i class="fa fa-download" aria-hidden="true"></i> Download Excel
+    </button>
+
+        <div class=" table-responsive" style="width: 100%  ;overflow-y:auto ; margin-bottom: 41px;">
+          <table items="tableData" show-filter="true" cellpadding="0"
+            cellspacing="0"  class="dataTable table-no-total table table-bordered"
+            id="dataTable">
+            <thead>
+            
+              <tr>
+                  <th
+                 style="position: relative;" colspan="1">
+                </th>
+                <th *ngFor="let column of upperHead"
+                   style="position: relative;"  (click)="sortType=tableHeader[column][0].description;sortReverse=-1*sortReverse;"  rowspan="1">{{column}}
+                    <div  class="sorting1" ng-show="selectedTimepriodResult.timePeriod_Nid!=0 ">
+                    <i class="fa fa-caret-up asc" aria-hidden="true"
+                      [ngClass]="{'hiding': !(sortType != tableHeader[column][0].description || sortReverse == 1)}"></i>
+                    <i class="fa fa-caret-down dsc" aria-hidden="true"
+                      [ngClass]="{'hiding': !(sortType != tableHeader[column][0].description || sortReverse == -1)}"></i>
+                  </div>
+                </th>
+              </tr>
+              <tr ng-if="selectedTimepriodResult.timePeriod_Nid==0">
+              <th *ngFor="let head of lowHeader"
+                  style="position: relative;" (click)="sortType=head.description;sortReverse=-1*sortReverse;">{{head.key}}
+                  <div  class="sorting1">
+                    <i class="fa fa-caret-up asc" aria-hidden="true"
+                      [ngClass]="{'hiding': !(sortType != head.description || sortReverse == 1)}"></i>
+                    <i class="fa fa-caret-down dsc" aria-hidden="true"
+                      [ngClass]="{'hiding': !(sortType != head.description || sortReverse == -1)}"></i>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr
+                *ngFor="let rowData of (tableData|tableDataSort:sortType:sortReverse) ">
+                <td *ngFor="let column of columns"
+                  >{{rowData[column]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+      <!-- <div *ngIf="tableValue['data']" id="main-content">
+         
+
+      <sdrc-table [id]="'tab1'" [rowData]="columns" [columnData]="upperHead" [maxTableHeight]="'600px'" [sorting]="true"
+      [headerFixed]="true" style="margin-left: 34px;">
+    </sdrc-table>
+    </div> -->
+    
+</div>
+
+
+<div class="modal fade" id="errorMessage" role="dialog"
+style="margin-top: 12%;">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content modal-info">
+    <div class="modal-header"
+      style="background-color: #2f515b; color: #fff;">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <!-- <h4 class="modal-title" style="text-align: center;">Error</h4> -->
+    </div>
+    <div class="modal-body">
+      <p
+        style="text-align: center; font-size: 20px; margin-bottom: -10px;">
+        Please select the {{errorMsg}}</p>
+    </div>
+    <div class="modal-footer" style="text-align: center;">
+      <button type="button"
+        class="btn btn-default btn-view text-center"
+        data-dismiss="modal">Ok</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<div class="modal fade" id="noDataModall" role="dialog"
+style="margin-top: 12%;">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content modal-info">
+    <div class="modal-header"
+      style="background-color: #2f515b; color: #fff;">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <!-- <h4 class="modal-title" style="text-align: center;">Info</h4> -->
+    </div>
+    <div class="modal-body">
+      <p
+        style="text-align: center; font-size: 20px; margin-bottom: -10px;">NO
+        DATA AVAILABLE</p>
+    </div>
+    <div class="modal-footer" style="text-align: center;">
+      <button type="button"
+        class="btn btn-default btn-view text-center"
+        data-dismiss="modal">Ok</button>
+    </div>
+  </div>
+
+</div>
+</div>

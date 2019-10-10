@@ -1,0 +1,17 @@
+{
+    "name": "sdrc-table",
+    "version": "0.0.9",
+    "author": "SDRC UI Team <uid@sdrc.co.in>",
+    "license": "MIT",
+    "peerDependencies": {
+      "@angular/core": ">=6.0.0",
+      "@angular/common": ">=6.0.0"
+    },
+    "ngPackage": {
+      "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+      "lib": {
+        "entryFile": "public_api.ts"
+      },
+      "dest": "dist"
+    }
+  }

@@ -1,0 +1,33 @@
+<div style="min-height: 10vh;border-bottom: 2px solid #d6d6d6" *ngIf="!districtName"></div>
+<mat-card id="card">
+      <!-- <div class="col-md-12 download">
+          <div class="download-btn">
+          <i class="material-icons back-arrow save-button" (click)="htmltoExcel()" id = "pointer"> e </i>
+          </div>
+          <span class="download-text">Download</span> 
+      </div> -->
+    <!-- <mat-card-title *ngIf="districtName"><h4>District name : {{districtName}}</h4></mat-card-title> -->
+
+    <mat-card-content>
+       
+<!-- <sdrc-form [numberOfColumn]="1" [questionArray]="actionItems" (onSubmit)="submit($event)" (onButtonClicked)="deleteButton($event)" ></sdrc-form> -->
+<sdrc-table 
+[id]="'tab1'" 
+[excelName]=districtName 
+[pdfName]=districtName 
+[headerName]=heading
+[rowData]="actionItems" 
+[columnData]="tableColumns"
+[columnData1]="tableColumns1" 
+[maxTableHeight]="'600px'"
+[sorting]="false" 
+[sortExcludeColumn]="['rowId','facilityType','facility','actionItem','status','remark']"
+[isPaginate]="true"
+[itemsPerPage]="15"
+[headerFixed]="true" 
+[searchBox]="false" 
+[downloadPdf]="false" 
+[downloadExcel]="districtName?true:false"></sdrc-table>
+
+</mat-card-content>
+</mat-card>

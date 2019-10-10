@@ -1,0 +1,134 @@
+<div class="container-fluid logo-background">
+  <div class="col-md-12 header-tab-view">
+      <div class="row">
+          <div class="col-md-10 left-container" >
+         
+              <div class="col-md-12 head-info heading-name" >
+                  <h1 class="heading-title">District Gap Analysis</h1>
+              </div>
+           </div>
+           <div class="col-md-2 right-container">
+                   <ul class="nav navbar-nav nav-flex-icons ml-auto texr">
+                    <li class="dropdown user-name" *ngIf = "auth.checkLoggedIn()">
+                      <span class="welcome-name"> Hello, <strong>{{app.getUserDetails().username}}</strong></span>
+                    </li>
+
+                    <li  class="noEffect" *ngIf = "auth.checkLoggedIn()" (click)="logout()" >
+                      <a mdbRippleRadius>Logout</a>
+                  </li>    
+                </ul>
+           </div>
+           
+     </div>
+      </div>
+  </div>
+
+     
+
+<header id="header">
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="nav_bar" class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item dropdown" [ngClass]="{'active': router.url=='/'}">
+                            <a class="nav-link" mdbRippleRadius routerLink="">Home</a>
+                        </li>
+                        <li class="nav-item dropdown" [ngClass]="{'active': router.url=='/about-us'}">
+                            <a class="nav-link" mdbRippleRadius routerLink="about-us">About Us</a>
+                        </li>
+                        <li class="nav-item dropdown" *ngIf="checkUserAuthorization('dashboard')"
+                            [ngClass]="{'active': router.url=='/dashboard'}"> <a class="nav-link" mdbRippleRadius
+                                routerLink="dashboard">Dashboard</a>
+                        </li>
+
+                        <li class="nav-item dropdown" *ngIf="auth.checkLoggedIn()"
+                            [ngClass]="{'active': router.url=='/dataTree'}">
+                            <a class="nav-link" mdbRippleRadius routerLink="dataTree">Data Tree</a>
+                        </li>
+
+
+                        <li class="nav-item dropdown" *ngIf="auth.checkLoggedIn()"
+                            [ngClass]="{'active': router.url.includes('/report')&&!router.url.includes('/fip')&&!router.url.includes('/dhap') }">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Reports</a>
+                            <div class="dropdown-menu arrow">
+                                <div class="triangle-up"></div>
+                                <a class="dropdown-item" [ngClass]="{'active': router.url=='/report/summary'}"
+                                    routerLink="report/summary">Summary Report </a>
+                                <a class="dropdown-item" [ngClass]="{'active': router.url=='/report/crossTab'}"
+                                    routerLink="report/crossTab">Cross-tab Report</a>
+                                <a class="dropdown-item" [ngClass]="{'active': router.url=='/report/rawData'}"
+                                    routerLink="report/rawData">Raw Data Report</a>
+
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown" *ngIf="auth.checkLoggedIn()"
+                            [ngClass]="{'active': router.url=='/report/fip'}">
+                            <a class="nav-link" mdbRippleRadius routerLink="report/fip">FIP</a>
+                        </li>
+
+                        <li class="nav-item dropdown" *ngIf="auth.checkLoggedIn()"
+                            [ngClass]="{'active': router.url=='/report/dhap'}">
+                            <a class="nav-link" mdbRippleRadius routerLink="report/dhap">DHAP</a>
+                        </li>
+
+                        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">User Management</a>
+                            <div class="dropdown-menu arrow">
+                                <div class="triangle-up"></div>
+                                <a class="dropdown-item" *ngIf="checkRole('Admin')" routerLink="/add-user"
+                                    [ngClass]="{'active': router.url=='/add-user'}">Create New User</a>
+                                <a class="dropdown-item" *ngIf="checkRole('Admin')" routerLink="/edit-user"
+                                    [ngClass]="{'active': router.url=='/edit-user'}">Edit User</a>
+                                <a class="dropdown-item" routerLink="/change-password"
+                                    [ngClass]="{'active': router.url=='/change-password'}">Change Password</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown" *ngIf="isLoggedIn()"
+                            [ngClass]="{'active': router.url=='/laQshya'}">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">LaQshya</a>
+                            <div class="dropdown-menu arrow">
+                                <div class="triangle-up"></div>
+                                <a class="dropdown-item" routerLink="/laQshya"
+                                    *ngIf="checkUserAuthorization('laQkhya,Edit')"
+                                    [ngClass]="{'active': router.url=='/laQshya'}">Data Entry</a>
+                                <a class="dropdown-item" routerLink="/laQshya"
+                                    *ngIf="checkUserAuthorization('laQkhya,View') && !checkRole('DDM')"
+                                    [ngClass]="{'active': router.url=='/laQshya'}" >Report</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Action Item
+                                Management</a>
+                            <div class="dropdown-menu arrow">
+                                <div class="triangle-up"></div>
+                                <a class="dropdown-item" mdbRippleRadius routerLink="/ddm-entry"
+                                    *ngIf="checkUserAuthorization('ActionItemManagenent,Edit')"
+                                    [ngClass]="{'active': router.url=='/ddm-entry'}">Data Entry</a>
+                                <a class="dropdown-item" mdbRippleRadius routerLink="/ddm-report"
+                                    *ngIf="checkUserAuthorization('ActionItemManagenent,View')"
+                                    [ngClass]="{'active': router.url=='/ddm-report'}">Report</a>
+                            </div>
+                        </li>
+
+                        <!-- <li  class="nav-item dropdown" [ngClass]="{'active': router.url=='/change-password'}" >
+                    <a class="nav-link" mdbRippleRadius routerLink="change-password">Change Password</a>
+                </li> -->
+				<li  class="nav-item" [ngClass]="{'active': router.url=='/contact-us'}" >
+                    <a class="nav-link" mdbRippleRadius routerLink="contact-us">Contact Us</a>
+                </li>
+                <li  class="nav-item" *ngIf = "!auth.checkLoggedIn()" [ngClass]="{'active': router.url=='/login'}" >
+                    <a class="nav-link" mdbRippleRadius routerLink="login">Login</a>
+                </li>
+                  </ul>
+              </div>
+          </nav>
+      </div>
+  </div>
+</header>
