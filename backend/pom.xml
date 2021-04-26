@@ -43,7 +43,7 @@
 		<tomcat.jsp.version>2.1</tomcat.jsp.version>
 		<!-- Apache POI -->
 		<poi.version>3.14</poi.version>
-		<commons-io.version>1.3.2</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 	</properties>
 
 	<dependencies>
